@@ -95,7 +95,7 @@ function ProppertiesSample(props) {
               right: 0,
               left: 0,
               textAlignVertical: 'center',
-              color: '#fff',
+              color: 'black',
               fontSize: 10,
               fontWeight: 'bold',
             }}>

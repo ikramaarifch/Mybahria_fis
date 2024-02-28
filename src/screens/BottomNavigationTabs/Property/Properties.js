@@ -138,6 +138,7 @@ function Properties(props) {
       .then(({details}) => {
         if (details.length != 0) {
           setAllPropperties(details);
+          console.log(details, 'setAllProperties');
         } else {
           ToastAndroid.show('No Data Found', ToastAndroid.LONG);
           setAllPropperties(oldProperties);
@@ -221,6 +222,7 @@ function Properties(props) {
     )
       .then(response => response.json())
       .then(({property_size}) => {
+        console.log(property_size, 'Properties size');
         setSizes(property_size);
       })
       .catch(error => console.log('error', error));
@@ -261,23 +263,9 @@ function Properties(props) {
 
   useEffect(() => {
     getAllProperties();
-    // const data = getAllProperties();
-    // setTimeout(() => {
-    //   // console.log('getAllProperties', allProperties);
-    //   allProperties.forEach(element => {
-    //     console.log(element);
-    //   });
-    //   // setAllPropperties(data.data);
-    //   setLoading(false);
-    //   // console.log('getAllProperties', data);
-    //   // allProperties.forEach(ele => {
-    //   //   console.log(ele);
-    //   // });
-    // }, 1500);
     getCity_Categories();
     getPropertySize();
     getProperType();
-    // CategoriesFetch();
   }, []);
 
   return (
@@ -365,6 +353,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   selectedValue={selectedCity1}
                   onValueChange={item => {
@@ -382,6 +371,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   mode="dropdown"
                   selectedValue={selectedArea}
@@ -396,6 +386,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   mode="dropdown"
                   selectedValue={selectedproperty}
@@ -411,6 +402,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   mode="dropdown"
                   selectedValue={selectedsize}
@@ -428,6 +420,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   mode="dropdown"
                   selectedValue={mainimumprice}
@@ -445,6 +438,7 @@ function Properties(props) {
                     height: 40,
                     width: '100%',
                     flex: 1,
+                    backgroundColor: 'grey',
                   }}
                   mode="dropdown"
                   selectedValue={maximumprice}
@@ -549,6 +543,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   pickerTitleStyle: {
+    color: 'black',
     fontSize: 14,
     flex: 1,
     fontWeight: 'bold',
