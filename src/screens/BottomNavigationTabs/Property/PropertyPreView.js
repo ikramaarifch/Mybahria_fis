@@ -174,6 +174,7 @@ function PropertyPreView(props) {
             borderLeftColor: '#CC0000',
             borderLeftWidth: 2,
             paddingLeft: 8,
+            color: 'red',
           }}>
           About Property
         </Text>
@@ -249,6 +250,7 @@ function PropertyPreView(props) {
             borderLeftColor: '#CC0000',
             borderLeftWidth: 2,
             paddingLeft: 8,
+            color: 'red',
           }}>
           About Seller
         </Text>
@@ -276,6 +278,7 @@ function PropertyPreView(props) {
               style={{
                 flex: 1,
                 fontSize: 12,
+                color: 'red',
                 // backgroundColor: 'red',
                 textAlign: 'left',
                 marginHorizontal: 8,
@@ -324,6 +327,7 @@ function PropertyPreView(props) {
                 fontSize: 12,
                 // backgroundColor: 'red',
                 textAlign: 'left',
+                color: 'red',
                 marginHorizontal: 8,
                 textAlignVertical: 'bottom',
                 // fontWeight: 'bold',

@@ -189,7 +189,7 @@ function Buy_Sells(props) {
             flex: 1,
           }}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 11, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 11, fontWeight: 'bold', color: 'red'}}>
               Product Name :{' '}
             </Text>
             <Text numberOfLines={1} style={{fontSize: 11, flex: 1}}>
@@ -283,6 +283,7 @@ function Buy_Sells(props) {
                       borderLeftColor: '#CC0000',
                       borderLeftWidth: 2,
                       paddingLeft: 8,
+                      color: 'red',
                     }}>
                     About Product
                   </Text>

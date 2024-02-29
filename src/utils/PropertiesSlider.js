@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {
   Text,
   View,
@@ -22,41 +23,39 @@ function PropertiesSlider(props) {
   const allProperties = props?.allProperties;
   const [isLoading, setLoading] = useState(true);
   const [updateData, setUpdataData] = useState([]);
-  // const getAllProperties = async () => {
-  //   const DATA = await fetch(PROPERTIES)
-  //     .then(response => response.json())
-  //     .then(({properties}) => setAllPropperties(properties.data))
-  //     // console.log(properties.data);
+  const [allProp, setAllProperties] = useState([]);
+  const states = useSelector(state => state.ConstantReducer);
+  const getAllProperties = async () => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${states?.user_token}`);
 
-  //     .catch(error => {
-  //       return console.error(error);
-  //     });
+      const response = await fetch(PROPERTIES, {
+        headers: myHeaders,
+      });
 
-  //   // console.log('DATA', DATA);
-  //   // return DATA;
-  // };
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      const {properties} = data;
+      console.log('newzzzzzzzzzzzzzz', properties);
+      setAllProperties(properties);
+      setLoading(false);
+      console.log('API ssdsdResponse:', properties);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  };
 
   useEffect(() => {
-    // getAllProperties();
-    // const data = getAllProperties();
-    // const pro_len = Math.ceil(allProperties.length / 2);
-    // console.log(len);
-    // const propertyHalfData = allProperties.slice(0, pro_len);
-    // setUpdataData(propertyHalfData);
-    // setTimeout(() => {
-    // console.log('getAllProperties', allProperties);
-    // allProperties.forEach(element => {
-    //   console.log(element);
-    // });
-    // setAllPropperties(data.data);
-    // setLoading(false);
-    // console.log('getAllProperties', updateData);
-    // allProperties.forEach(ele => {
-    //   console.log(ele);
-    // });
-    // }, 1500);
-  }, []);
+    getAllProperties();
 
+    console.log('updated', allProp);
+  }, []);
+  console.log('allprop', allProp);
   const [data, setData] = useState([
     {
       title: 'Double Storley ',
@@ -163,7 +162,7 @@ function PropertiesSlider(props) {
       <Carousel
         layout={'default'}
         // ref={ref => (this.carousel = ref)}
-        data={allProperties}
+        data={allProp}
         sliderWidth={width}
         itemWidth={width}
         // sliderHeight={200}

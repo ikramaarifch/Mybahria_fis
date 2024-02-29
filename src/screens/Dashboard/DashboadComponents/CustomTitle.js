@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     borderLeftWidth: 2.5,
     fontSize: 15,
+    color: 'firebrick',
     // fontWeight: 'bold',
 
     // marginHorizontal: 20,

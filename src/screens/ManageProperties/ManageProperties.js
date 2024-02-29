@@ -60,17 +60,14 @@ function ManageProperties(props) {
   const [IMG, setIMG] = useState('');
   const [Purpose, setPurpose] = useState('Sale');
   const [Price, setPrice] = useState('');
-
   const [updateprice, setUpdateprice] = useState('');
   const [updateLocation, setupdateLocation] = useState('');
   const [updatedtitle, setupdateTitle] = useState('');
-
   const [updatenote, setupdateNote] = useState('');
   const [updatepurpose, setupdatePurpose] = useState('');
   const [updatehousedescription, setupdatehousedescription] = useState('');
   const [Auth_location, setAuth_location] = useState('');
   const [image1, setImage1] = useState('');
-
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
   const [image1Visibility, setImage1Visibility] = useState(false);

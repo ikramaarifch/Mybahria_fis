@@ -153,8 +153,12 @@ function StackHeader(props) {
           </TouchableOpacity>
 
           <View style={{flex: 1, marginHorizontal: 8}}>
-            <Text style={{fontWeight: 'bold'}}>{user?.name}</Text>
-            <Text style={{fontSize: 10}}>{user?.created_at}</Text>
+            <Text style={{fontWeight: 'bold', color: 'firebrick'}}>
+              {user?.name}
+            </Text>
+            <Text style={{fontSize: 10, color: 'firebrick'}}>
+              {user?.created_at}
+            </Text>
           </View>
           <View
             style={{
@@ -226,7 +230,7 @@ function StackHeader(props) {
           </TouchableOpacity>
           <ScrollView>
             {noticeborad.length === 0 || noticeborad === undefined ? (
-              <Text>No Data Found</Text>
+              <Text style={{color: 'firebrick'}}>No Data Found</Text>
             ) : (
               noticeborad.map((notice, index) => (
                 <AccordionItem
