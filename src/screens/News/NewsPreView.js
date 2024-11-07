@@ -1,11 +1,15 @@
-import React from 'react';
+import React,{ useEffect, useState} from 'react';
 
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {APIS} from '../../utils/URLS/Urls';
-
+import RenderHTML from 'react-native-render-html';
 function NewsPreView(props) {
+
+  const [data, setData] = useState(null);
+  const contentWidth = Dimensions.get('window').width;
+
   const ITEM = props.route.params.ITEM;
   const BASE_IMAGES_URL = 'https://mybahria.com.pk/storage/images/';
 
@@ -17,6 +21,10 @@ function NewsPreView(props) {
   const TIME = TIME_DATE.split(' ');
   console.log({indx}, {TIME});
   const DETAILS = ITEM.description;
+
+  useEffect(() => {
+    setData(DETAILS);
+  })
 
   return (
     <View style={styles.body}>
@@ -45,7 +53,15 @@ function NewsPreView(props) {
           </Text>
         </View>
       </View>
-      <Text style={styles.description}>{DETAILS}</Text>
+      {/* <Text style={{color:'black'}}> */}
+      <ScrollView>
+      <RenderHTML 
+        contentWidth={contentWidth}
+        source={{ html: data}}
+        baseStyle={{ color: 'black' }}
+      />
+      </ScrollView>
+      {/* </Text> */}
     </View>
   );
 }

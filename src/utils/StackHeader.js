@@ -15,7 +15,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {APIS} from './URLS/Urls';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -220,6 +220,7 @@ function StackHeader(props) {
           onPress={() => setNoticeBoardModalVisibility(false)}
           style={{flex: 1, backgroundColor: 'transparent'}}
         />
+        
         <View
           style={{
             minHeight: 250,
@@ -252,10 +253,12 @@ function StackHeader(props) {
             <FontAwesome5 name={'times'} size={18} color="#fff" />
           </TouchableOpacity>
           <ScrollView>
+          
             {noticeborad.length === 0 || noticeborad === undefined ? (
               <Text style={{color: 'firebrick'}}>No Data Found</Text>
             ) : (
               noticeborad.map((notice, index) => (
+                console.log(notice),
                 <AccordionItem
                   key={index.toString()}
                   title={notice.title}
@@ -352,6 +355,7 @@ function StackHeader(props) {
             data={emergency}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => {
+              console.log(item);
               return (
                 <View
                   style={{borderBottomColor: 'silver', borderBottomWidth: 2}}>
@@ -364,9 +368,10 @@ function StackHeader(props) {
                       // backgroundColor: '#ddd',
                       // paddingVertical: 8,
                       paddingHorizontal: 16,
+                      height:50,
                     }}>
                     <MaterialCommunityIcons
-                      name="fire-truck"
+                      name={item.icon}
                       color="#cc0000"
                       size={20}
                     />
@@ -377,6 +382,7 @@ function StackHeader(props) {
                         marginHorizontal: 4,
                         color: 'black',
                         // fontWeight: 'bold',
+                        // height:30,
                       }}>
                       {item?.title}
                     </Text>
@@ -387,7 +393,7 @@ function StackHeader(props) {
                           onPress={() => {
                             Linking.openURL(`tel:${i}`);
                           }}>
-                          <Text style={{color: '#cc0000'}}>{i}</Text>
+                          <Text style={{color: '#cc0000', width:110}}>{i}</Text>
                         </TouchableOpacity>
                       ))}
                     </View>

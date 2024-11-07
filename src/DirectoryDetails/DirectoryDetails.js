@@ -13,6 +13,22 @@ import {APIS} from '../utils/URLS/Urls';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const AddressComponent = ({ address }) => {
+  // Define the maximum character limit before truncating
+  const MAX_LENGTH = 20;
+
+  // Check if address is too long and needs to be truncated
+  const displayAddress = address.length > MAX_LENGTH
+    ? `${address.substring(0, 10)}...${address.substring(address.length - 10)}`
+    : address;
+
+  return (
+    <Text style={{ fontSize: 14, fontWeight: '600', color: 'firebrick' }}>
+      {displayAddress}
+    </Text>
+  );
+};
+
 const DirectoryDetails = props => {
   const {
     route: {
@@ -38,13 +54,15 @@ const DirectoryDetails = props => {
       alert(error.message);
     }
   };
-
+  
   const renderItem = ({item}) => {
+    console.log('item', item);
     return (
+
       <View
         style={{
           flex: 1,
-          backgroundColor: '#fff',
+          backgroundColor: '#ffff',
           elevation: 10,
           margin: 10,
           paddingHorizontal: 10,
@@ -64,9 +82,7 @@ const DirectoryDetails = props => {
           <Text style={{fontSize: 14, fontWeight: '600', color: 'firebrick'}}>
             {item.parent_category}
           </Text>
-          <Text style={{fontSize: 14, fontWeight: '600', color: 'firebrick'}}>
-            {item.city}
-          </Text>
+          <AddressComponent address={item.address1} />
           <Text style={{fontSize: 14, fontWeight: '600', color: 'firebrick'}}>
             {item.landline}
           </Text>

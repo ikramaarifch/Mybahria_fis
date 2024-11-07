@@ -1,14 +1,22 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
 import {Card} from 'react-native-paper';
-
+import RenderHTML from 'react-native-render-html';
 const AccordionItem = ({title, description, date}) => {
   const [expanded, setExpanded] = useState(false);
   let Dateitem = date.split(' ');
+
+  const [data, setData] = useState(null);
+  const contentWidth = Dimensions.get('window').width;
+
   const toggleAccordion = () => {
+    console.log('pressed', description);
     setExpanded(!expanded);
   };
-  const innerText = description.replace(/<\/?p>/g, '');
+  // const innerText = description.replace(/<\/?p>/g, '');
+  useEffect(() =>{
+    setData(description);
+  })
   return (
     <Card
       style={{
@@ -31,7 +39,10 @@ const AccordionItem = ({title, description, date}) => {
       </TouchableOpacity>
       {expanded && (
         <Card.Content>
-          <Text>{innerText}</Text>
+        <RenderHTML
+        contentWidth={contentWidth}
+        source={{ html: description }}
+      />
         </Card.Content>
       )}
     </Card>
