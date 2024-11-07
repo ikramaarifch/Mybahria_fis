@@ -58,28 +58,61 @@ function DirectoryPreViewSample(props) {
   const [SeachedData, setSearchedData] = useState([]);
   const [Loading, setLoading] = useState(false);
 
-  const getServicesDetail = async id => {
-    await fetch(APIS.post_service_detail, {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + states.user_token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({category_name: id}),
-    })
-      .then(response => response.json())
-      .then(({service_detail}) => {
-        setDetails(service_detail);
-        setOldDetails(service_detail);
-      })
-      .catch(error => {
-        return console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
+  // const getServicesDetail = async id => {
+  //   await fetch(APIS.post_service_detail, {
+  //     method: 'POST',
+  //     headers: {
+  //       Authorization: 'Bearer ' + states.user_token,
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({category_name: id}),
+  //   })
+  //     .then(response => response.json())
+  //     .then(({service_detail}) => {
+  //       setDetails(service_detail);
+  //       setOldDetails(service_detail);
+  //     })
+  //     .catch(error => {
+  //       return console.error(error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
+
+  const getServicesDetail = async (id) => {
+    try {
+      setLoading(true); // Ensure loading state is set before fetch begins
+      const response = await fetch(APIS.post_service_detail, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + states.user_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category_name: id }),
       });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch service details');
+      }
+  
+      const data = await response.json(); // Get the response data
+  
+      console.log('Service Details Response:', data); // Log the response
+  
+      const { service_detail } = data;
+  
+      setDetails(service_detail);
+      setOldDetails(service_detail);
+    } catch (error) {
+      console.error('Error fetching service details:', error);
+    } finally {
+      setLoading(false); // Ensure loading is stopped after fetch completes
+    }
   };
+  
   const searchAPI = () => {
     var myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${states.user_token}`);
@@ -92,7 +125,7 @@ function DirectoryPreViewSample(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/search-service', requestOptions)
+    fetch('https://mybahria.com.pk/api/search-service', requestOptions)
       .then(response => response.json())
       .then(({details}) => {
         if (details.length != 0) {
@@ -396,6 +429,7 @@ function DirectoryPreViewSample(props) {
               borderLeftWidth: 2,
               fontWeight: 'bold',
               paddingHorizontal: 8,
+              color:'red'
             }}>
             Filter by
           </Text>

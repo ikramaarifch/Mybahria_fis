@@ -69,6 +69,7 @@ function PropertyPreView(props) {
       setLoading(false);
     }, 1500);
   }, []);
+  
 
   const callUser = () => {
     Linking.openURL(`tel:${auth_phoneNumber}`);
@@ -78,7 +79,7 @@ function PropertyPreView(props) {
   //   <ActivityIndicator size="large" color="red" style={{marginVertical: 50}} />
   // ) : (
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <View style={{flex: 1}}>
       <View
         style={{
           // marginBottom: 8,
@@ -423,7 +424,9 @@ function PropertyPreView(props) {
             </TouchableOpacity> */}
           </View>
           {activeButton === 'Description' ? (
-            <Text>{House_Description}</Text>
+            <Text
+            style={{color:'black'}}
+            >{House_Description}</Text>
           ) : (
             <Text style={styles.titleStyle}>Map</Text>
           )}

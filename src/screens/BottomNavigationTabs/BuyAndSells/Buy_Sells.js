@@ -80,29 +80,59 @@ function Buy_Sells(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/search-buy', requestOptions)
+    fetch('https://mybahria.com.pk/api/search-buy', requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
-  const CategoriesFetch = () => {
-    var myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${states?.user_token}`);
+  // const CategoriesFetch = () => {
+  //   var myHeaders = new Headers();
+  //   myHeaders.append('Authorization', `Bearer ${states?.user_token}`);
 
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
+  //   var requestOptions = {
+  //     method: 'GET',
+  //     headers: myHeaders,
+  //     redirect: 'follow',
+  //   };
 
-    fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-sell-category',
-      requestOptions,
-    )
-      .then(response => response.json())
-      .then(({property_item_cat}) => setCategories(property_item_cat))
-      .catch(error => console.log('error--->', error));
+  //   fetch(
+  //     'http://mybahria.assanhissab.com/api/dropdown-sell-category',
+  //     requestOptions,
+  //   )
+  //     .then(response => response.json())
+  //     .then(({property_item_cat}) => setCategories(property_item_cat))
+  //     .catch(error => console.log('error--->', error));
+  // };
+
+  const CategoriesFetch = async () => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${states?.user_token}`);
+  
+      const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow',
+      };
+  
+      const response = await fetch(
+        'https://mybahria.com.pk/api/dropdown-sell-category',
+        requestOptions
+      );
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch categories');
+      }
+  
+      const { property_item_cat } = await response.json();
+      setCategories(property_item_cat);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      // Handle the error appropriately, e.g., display an error message
+    }
   };
+  
+
   const business_categoryIndex = (item, index) => {
     setCategory(item);
     console.log(item);
@@ -113,38 +143,82 @@ function Buy_Sells(props) {
   let categoryItems = category.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.title} />;
   });
+  // const getBuyandSell = async () => {
+  //   setLoading(true);
+  //   console.log(states.user_token);
+  //   await fetch('http://mybahria.assanhissab.com/api/buy-and-sell', {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: 'Bearer ' + states.user_token,
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(({bahria_sells, bahria_buy}) => {
+  //       console.log(
+  //         '🚀 ~ file: Buy_Sells.js:152 ~ .then ~ bahria_sells:',
+  //         bahria_buy,
+  //       );
+
+  //       setBuySell(bahria_sells);
+  //     })
+  //     .catch(error => {
+  //       return console.error(error, 'Error');
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
+
+  // useEffect(async () => {
+  //   await getBuyandSell();
+  //   await CategoriesFetch();
+  // }, []);
+  
   const getBuyandSell = async () => {
     setLoading(true);
     console.log(states.user_token);
-    await fetch('http://mybahria.assanhissab.com/api/buy-and-sell', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + states.user_token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(({bahria_sells, bahria_buy}) => {
-        console.log(
-          '🚀 ~ file: Buy_Sells.js:152 ~ .then ~ bahria_sells:',
-          bahria_buy,
-        );
-
-        setBuySell(bahria_sells);
-      })
-      .catch(error => {
-        return console.error(error, 'Error');
-      })
-      .finally(() => {
-        setLoading(false);
+    
+    try {
+      const response = await fetch('https://mybahria.com.pk/api/buy-and-sell', {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + states.user_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      
+      const { bahria_sells } = await response.json();
+      console.log('🚀 ~ bahria_sells:', bahria_sells);
+      setBuySell(bahria_sells);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle the error appropriately, e.g., display an error message
+    } finally {
+      setLoading(false);
+    }
   };
-
-  useEffect(async () => {
-    await getBuyandSell();
-    await CategoriesFetch();
+  
+  useEffect(() => {
+    async function fetchData() {
+      await getBuyandSell();
+      await CategoriesFetch();
+    }
+  
+    fetchData();
+  
+    // Optionally, if you need cleanup logic, return a function from useEffect
+    // return () => {
+    //   // cleanup logic here
+    // };
   }, []);
+  
 
   const visibilityHandler = item => {
     // console.log(item.about_details.category,'line 252');
@@ -192,7 +266,7 @@ function Buy_Sells(props) {
             <Text style={{fontSize: 11, fontWeight: 'bold', color: 'red'}}>
               Product Name :{' '}
             </Text>
-            <Text numberOfLines={1} style={{fontSize: 11, flex: 1}}>
+            <Text numberOfLines={1} style={{fontSize: 11, flex: 1,color:'black'}}>
               {!item.title ? 'Empty' : item.title}
             </Text>
           </View>
@@ -203,16 +277,16 @@ function Buy_Sells(props) {
             </Text>
           </View>
           <View style={styles.itemContainerStyle}>
-            <Text style={{fontSize: 11, fontWeight: 'bold'}}>Price : </Text>
-            <Text style={{fontSize: 11}}>
+            <Text style={{fontSize: 11,color:'black', fontWeight: 'bold'}}>Price : </Text>
+            <Text style={{fontSize: 11,color:'black'}}>
               {!item.price ? 'Empty' : item.price}
             </Text>
           </View>
           <View style={{...styles.itemContainerStyle, marginTop: 16}}>
-            <Text style={{fontSize: 11, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 11, fontWeight: 'bold',color:'red'}}>
               Posted Date :{' '}
             </Text>
-            <Text style={{fontSize: 11, flex: 1}}>{item.sells_date}</Text>
+            <Text style={{fontSize: 11, flex: 1,color:'black'}}>{item.sells_date}</Text>
 
             <TouchableOpacity
               onPress={() => {
@@ -347,7 +421,7 @@ function Buy_Sells(props) {
                         fontWeight: 'bold',
                         borderLeftColor: '#CC0000',
                         borderLeftWidth: 2,
-                        paddingLeft: 8,
+                        paddingLeft: 8,color:'black'
                       }}>
                       About Seller
                     </Text>
@@ -379,7 +453,7 @@ function Buy_Sells(props) {
                           // backgroundColor: 'red',
                           textAlign: 'left',
                           marginHorizontal: 8,
-                          textAlignVertical: 'bottom',
+                          textAlignVertical: 'bottom',color:'black'
                           // fontWeight: 'bold',
                         }}>
                         {currentItem['get_person'] === null || undefined
@@ -408,7 +482,7 @@ function Buy_Sells(props) {
                           // backgroundColor: 'red',
                           textAlign: 'left',
                           marginHorizontal: 8,
-                          textAlignVertical: 'bottom',
+                          textAlignVertical: 'bottom',color:'black'
                           // fontWeight: 'bold',
                         }}>
                         {currentItem['get_person'] === null || undefined

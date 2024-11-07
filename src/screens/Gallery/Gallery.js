@@ -15,7 +15,7 @@ import PictureCardSample from './PictureCardSample/PictureCardSample';
 import styles from './styles';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 
-const IMAGES_BASE_URL = 'http://mybahria.assanhissab.com/assets/uploads/';
+const IMAGES_BASE_URL = 'https://mybahria.com.pk/public/assets/uploads/';
 function Gallery({navigation}) {
   const states = useSelector(state => state.ConstantReducer);
   const [imagesList, setImagesList] = useState([]);

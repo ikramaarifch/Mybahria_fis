@@ -113,7 +113,7 @@ function ManageItemSample(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/save-edit-buy', requestOptions)
+    fetch('https://mybahria.com.pk/api/save-edit-buy', requestOptions)
       .then(response => response.json())
       .then(({status}) => {
         if (status === 'success') {
@@ -123,7 +123,7 @@ function ManageItemSample(props) {
       .catch(error => console.log('error', error));
   };
   const getCategories = () => {
-    fetch('http://api-mybahria.assanhissab.com/api/item-categories', {
+    fetch('https://api-mybahria.com.pk/api/item-categories', {
       headers: {
         Authorization: 'Bearer ' + states.user_token,
         Accept: 'application/json',

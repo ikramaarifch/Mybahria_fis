@@ -14,7 +14,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 function JobsSample(props) {
-  const IMAGES_BASE_URL = 'http://mybahria.assanhissab.com/storage/images/';
+  const IMAGES_BASE_URL = 'https://mybahria.com.pk/storage/images/';
   const ITEM = props.item;
   console.log('props:', ITEM);
   const [modalVisibility, setModalVisibility] = useState(false);

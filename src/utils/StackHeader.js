@@ -56,7 +56,7 @@ function StackHeader(props) {
       .then(response => response.json())
       // .then(res => res)
       .then(({emergency}) => {
-        console.log(emergency);
+        console.log(emergency,"eme");
         setemergency(emergency);
       })
       .catch(error => {
@@ -80,7 +80,7 @@ function StackHeader(props) {
       headers: myHeaders,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/notice-board', requestOptions)
+    fetch('https://mybahria.com.pk/api/notice-board', requestOptions)
       .then(response => response.json())
       .then(({notice_boards}) => setNoticeborad(notice_boards))
       .catch(error => console.log('error', error));
@@ -97,7 +97,7 @@ function StackHeader(props) {
       .then(response => response.json())
       // .then(res => res)
       .then(({user}) => {
-        // console.log(emergency)
+         console.log(emergency,'emergecy')
         setuser(user);
       })
       .catch(error => {
@@ -109,12 +109,35 @@ function StackHeader(props) {
 
     // console.log('DATA', DATA);
   };
-  useEffect(async () => {
-    setLoading(true);
-    getEmergency();
-    getUser();
-    NoticeBoardAPI();
+  // useEffect(async () => {
+  //   setLoading(true);
+  //   getEmergency();
+  //   getUser();
+  //   NoticeBoardAPI();
+  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        await getEmergency();
+        await getUser();
+        await NoticeBoardAPI();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle the error appropriately, e.g., display an error message
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+  
+    // Optionally, if you need cleanup logic, return a function from useEffect
+    // return () => {
+    //   // cleanup logic here
+    // };
   }, []);
+  
 
   // console.log(emergency)
   return (

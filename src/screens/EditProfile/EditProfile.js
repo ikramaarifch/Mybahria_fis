@@ -89,7 +89,7 @@ function EditProfile(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/update-password', requestOptions)
+    fetch('https://mybahria.com.pk/api/update-password', requestOptions)
       .then(response => response.json())
       .then(({current_user}) => {
         if (current_user === 'Old Password does not match') {
@@ -116,8 +116,9 @@ function EditProfile(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/area', requestOptions)
+    fetch('https://mybahria.com.pk/api/area', requestOptions)
       .then(response => response.json())
+    
       .then(({area}) => setAreas(area))
       .catch(error => console.log('error', error));
   };
@@ -177,7 +178,7 @@ function EditProfile(props) {
       redirect: 'follow',
     };
     fetch(
-      'http://mybahria.assanhissab.com/api/save-profile-info',
+      'https://mybahria.com.pk/api/save-profile-info',
       requestOptions,
     )
       .then(response => response.json())
@@ -277,7 +278,7 @@ function EditProfile(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/update-avatar', requestOptions)
+    fetch('https://mybahria.com.pk/api/update-avatar', requestOptions)
       .then(response => response.json())
       .then(({status}) => {
         if (status === 'success') {

@@ -52,7 +52,7 @@ function Contact(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/contact-us', requestOptions)
+    fetch('https://mybahria.com.pk/api/contact-us', requestOptions)
       .then(response => response.json())
       .then(({message}) => {
         if (message === 'Your request submit successfully') {

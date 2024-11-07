@@ -23,7 +23,7 @@ function ForgetPassword({navigation}) {
         redirect: 'follow',
       };
       await fetch(
-        'http://mybahria.assanhissab.com/api/forget-password-email',
+        'https://mybahria.com.pk/api/forget-password-email',
         requestOptions,
       )
         .then(response => response.json())

@@ -17,6 +17,8 @@ function ProppertiesSample(props) {
   const [isLoading, setLoading] = useState(true);
 
   const ITEM = props.ITEM;
+  const Auth_location =
+  ITEM['city_info'] === null || undefined ? null : ITEM['city_info'].dayDifference;
   // const title = ITEM.title;
   // const Location = ITEM['location_info'].name;
   // const Auth_location = ITEM['city_info'].name;
@@ -66,7 +68,7 @@ function ProppertiesSample(props) {
           paddingHorizontal: 8,
           alignItems: 'center',
           justifyContent: 'space-evenly',
-        }}>
+          }}>
         <View>
           {ITEM.image === null ? (
             <Image
@@ -112,11 +114,11 @@ function ProppertiesSample(props) {
           }}>
           <Text
             numberOfLines={2}
-            style={{fontWeight: 'bold', fontSize: 12, width: '85%'}}>
+            style={{fontWeight: 'bold', fontSize: 12, width: '85%',color:'black'}}>
             {ITEM.title}
           </Text>
 
-          <Text style={{fontSize: 11, marginTop: 8, color: 'gray'}}>
+          <Text style={{fontSize: 11, marginTop: 8,color:'black'}}>
             Location: {ITEM.address}
           </Text>
 
@@ -141,13 +143,13 @@ function ProppertiesSample(props) {
             <Text style={{fontSize: 11, color: 'gray'}}>
               {/* Location: {Location} */}
             </Text>
-            <Text style={{fontSize: 11, color: 'gray'}}>
+            <Text style={{fontSize: 11, color: 'black'}}>
               Added: {ITEM.dayDifference} days ago
             </Text>
           </View>
 
           <View style={{position: 'absolute', right: 0, bottom: 8}}>
-            <Text style={{fontWeight: 'bold', fontSize: 13, color: 'gray'}}>
+            <Text style={{fontWeight: 'bold', fontSize: 13, color: 'red'}}>
               Starting From
             </Text>
             <View

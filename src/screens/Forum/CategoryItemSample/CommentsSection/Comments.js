@@ -41,7 +41,7 @@ function Comments(props) {
       redirect: 'follow',
     };
 
-    fetch('http://mybahria.assanhissab.com/api/forum-detail', requestOptions)
+    fetch('https://mybahria.com.pk/api/forum-detail', requestOptions)
       .then(response => response.json())
       .then(({discussionscomments}) => {
         console.log(
@@ -108,7 +108,7 @@ function Comments(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/create-comment', requestOptions)
+    fetch('https://mybahria.com.pk/api/create-comment', requestOptions)
       .then(response => response.json())
       .then(({status}) => {
         if (status === 'Comment Added') {

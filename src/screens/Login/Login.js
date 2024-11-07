@@ -101,7 +101,8 @@ function Login(props) {
     // console.log(states.user_data, 'login');
 
     // props.navigation.navigate('HomeStack');
-    console.log('sdsdsdsdsd', token);
+    console.log('usertoken', token);
+     
     if (token) {
       ToastAndroid.show('Logged in Successfully', ToastAndroid.SHORT);
     } else {

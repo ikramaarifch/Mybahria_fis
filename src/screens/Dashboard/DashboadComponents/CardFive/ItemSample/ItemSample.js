@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/core';
 import {onpenCloseModal} from '../../../../../redux/Actions/Blogs.action';
 import {connect} from 'react-redux';
 // const navigation = useNavigation();
-const IMAGES_BASE_URL = 'http://mybahria.assanhissab.com/storage/images/';
+const IMAGES_BASE_URL = 'https://mybahria.com.pk/storage/images/';
 
 function ItemSample(props) {
   const ITEM = props.ITEM;
@@ -45,7 +45,7 @@ function ItemSample(props) {
             borderRadius: 4,
           }}
           //   source={require('../../../../../Drawables/')}
-          source={{uri: `http://mybahria.assanhissab.com/assets/uploads/${ITEM.image}`}}
+          source={{uri: `https://mybahria.com.pk/assets/uploads/${ITEM.image}`}}
         />
         <View
           style={{

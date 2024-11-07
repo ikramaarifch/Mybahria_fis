@@ -94,19 +94,18 @@ function ManageProperties(props) {
   const Areadropdown = id => {
     var myHeaders = new Headers();
     // myHeaders.append('Authorization', `Bearer ${user_token}`);
-    myHeaders.append(
+    myHeaders.append("Authorization",
       'Cookie',
       'XSRF-TOKEN=eyJpdiI6IlpqNXIzVDhuYitXOXcyencyNHhZZmc9PSIsInZhbHVlIjoiNWVqeW1Oam9hQjJnV0RCUndPNlZEOTFmeCtYaGhUL1FmNkh3L2ppVmRBMHdwMVcvWFdSQnpMam9yQkVQSS9vUnN1SzdiSDlGTkRNY0RmVHViZ1NzZTBiTDNxYXdLUjFUSXgzcWkwQlJmaDFKL0ZnMEhtTUlVanlsWlBYbU1kUksiLCJtYWMiOiIwNzY5YjQzMGZkYzBmNzgyOTU1ZGY0NmJjNThhMWUyNjY0YzM4ZDNkYzU4YjdjZmZkMjFkODYxM2RmMTFjMzExIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6ImFyTCtnNzJ2Sm95RTZNWk1EN3NadUE9PSIsInZhbHVlIjoidHFvd1NvTDYvT1hXMTd0RURQUHpvTE5VZHY2cmpxVVVsUVlCNWszZCtzT0xkZnd5R1BjOEkyVzZTZ0psaWpGZTNrUE1jNWVqazdLemRrYTlHNWQzTFNFbElrVFNlR0VLWSt3WkJBSEFGbU50Nkc1R2FUdDBneHp5NldsL3ZwME4iLCJtYWMiOiIwZjIxZmJlN2IyMzdkMWE2M2FkYTZiMDJjZWUyNTNjNzc5NWFmNzMzZWJjNTllMGU1Mjc0MGRhMTU1ZWRlYmI1IiwidGFnIjoiIn0%3D',
     );
-    var formdata = new FormData();
-    formdata.append('city_id', id);
+   
     var requestOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: myHeaders,
-      body: formdata,
+     
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/area', requestOptions)
+    fetch('https://mybahria.com.pk/api/area', requestOptions)
       .then(response => response.json())
       .then(({area}) => setAreas(area))
       .catch(error => console.log('error', error));
@@ -187,7 +186,7 @@ function ManageProperties(props) {
         redirect: 'follow',
       };
       await fetch(
-        'http://mybahria.assanhissab.com/api/add-property',
+        'https://mybahria.com.pk/api/add-property',
         requestOptions,
       )
         .then(response => response.json())
@@ -256,7 +255,7 @@ function ManageProperties(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-property-size',
+      'https://mybahria.com.pk/api/dropdown-property-size',
       requestOptions,
     )
       .then(response => response.json())
@@ -277,7 +276,7 @@ function ManageProperties(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-property-type',
+      'https://mybahria.com.pk/api/dropdown-property-type',
       requestOptions,
     )
       .then(response => response.json())
@@ -307,7 +306,7 @@ function ManageProperties(props) {
       redirect: 'follow',
     };
     fetch(
-      'http://mybahria.assanhissab.com/api/save-edit-property',
+      'https://mybahria.com.pk/api/save-edit-property',
       requestOptions,
     )
       .then(response => response.json())
@@ -554,7 +553,7 @@ function ManageProperties(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/delete-property', requestOptions)
+    fetch('https://mybahria.com.pk/api/delete-property', requestOptions)
       .then(response => response.json())
       .then(res => {
         if (res.delete_property === 'Property Deleted Successfully') {
@@ -687,6 +686,7 @@ function ManageProperties(props) {
                     paddingHorizontal: 8,
                     marginVertical: 16,
                     fontWeight: 'bold',
+                    color:'black'
                   }}>
                   Add Property For {Purpose}
                 </Text>
@@ -711,6 +711,7 @@ function ManageProperties(props) {
                   alignSelf: 'center',
                   fontSize: 12,
                   backgroundColor: '#fff',
+                  color:'black'
                   // paddH,
                 }}
                 // mode="outlined"
@@ -828,7 +829,7 @@ function ManageProperties(props) {
                 theme={{colors: {primary: 'red'}}}
               />
               <Text
-                style={{marginTop: 16, marginBottom: 8, fontWeight: 'bold'}}>
+                style={{marginTop: 16, marginBottom: 8, fontWeight: 'bold',color:'black'}}>
                 Sale / Rent
               </Text>
               <View
@@ -892,6 +893,7 @@ function ManageProperties(props) {
                   paddingHorizontal: 8,
                   marginTop: 16,
                   fontWeight: 'bold',
+                  color:'black'
                 }}>
                 Pick 3 Images
               </Text>
@@ -1043,6 +1045,8 @@ function ManageProperties(props) {
                     paddingHorizontal: 8,
                     marginVertical: 16,
                     fontWeight: 'bold',
+                    color:'black'
+            
                   }}>
                   Edit
                 </Text>
@@ -1183,7 +1187,7 @@ function ManageProperties(props) {
                 theme={{colors: {primary: 'red'}}}
               />
               <Text
-                style={{marginTop: 16, marginBottom: 8, fontWeight: 'bold'}}>
+                style={{marginTop: 16, marginBottom: 8, fontWeight: 'bold',color:'black'}}>
                 Sale / Rent
               </Text>
               <View

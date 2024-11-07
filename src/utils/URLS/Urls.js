@@ -1,10 +1,10 @@
-const BASE_URL = 'https://mybahria.assanhissab.com/api/';
+const BASE_URL = 'https://mybahria.com.pk/api/';
 // const BASE_URL = 'http://localhost:8000/api/';
 export const Directoryiconurl =
-  'http://mybahria.assanhissab.com/assets/directory-icons/';
+  'https://mybahria.com.pk/assets/directory-icons/';
 
 export const IMAGES_BASAE_URL =
-  'http://mybahria.assanhissab.com/storage/images/';
+  'https://mybahria.com.pk/storage/images/';
 
 export const FORUM_COMMENTS = `${BASE_URL}forum_detail/{id}?id=`;
 export const FORUM_CATEGORY_SUB_LIST = `${BASE_URL}forums-list?id=`;
@@ -19,11 +19,11 @@ export const FORUM_CATEGORY = `${BASE_URL}forum-categories`;
 export const PROPERTIES = `${BASE_URL}bahria-property`;
 // export const NEWS = `${BASE_URL}news-list`;
 
-export const news_image_base_url = 'http://api-mybahria.assanhissab.com';
+export const news_image_base_url = 'https://api-mybahria.com.pk';
 
 export const APIS = {
   default_image: require('../../Drawables/logo.png'),
-  image_base_url: 'http://mybahria.assanhissab.com/assets/uploads/',
+  image_base_url: 'https://mybahria.com.pk/public/assets/uploads/',
   login: `${BASE_URL}login`,
   register: `${BASE_URL}register`,
   data_signup_city: `${BASE_URL}city`,

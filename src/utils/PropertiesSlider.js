@@ -53,9 +53,9 @@ function PropertiesSlider(props) {
   useEffect(() => {
     getAllProperties();
 
-    console.log('updated', allProp);
+   /// console.log('updated', allProp);
   }, []);
-  console.log('allprop', allProp);
+ // console.log('allprop', allProp);
   const [data, setData] = useState([
     {
       title: 'Double Storley ',

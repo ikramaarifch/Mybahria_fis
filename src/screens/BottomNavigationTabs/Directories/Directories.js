@@ -57,42 +57,119 @@ function Directories(props) {
 
   const [directorydata, setDirectorydata] = useState([]);
 
-  const getDirectoriesData = async () => {
-    await fetch(APIS.get_directory, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + states.user_token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(({parents}) => {
-        console.log(
-          '🚀 ~ file: Directories.js:190 ~ .then ~ parents:',
-          parents,
-        );
-        let Array = [];
+  // const getDirectoriesData = async () => {
+  //   await fetch(APIS.get_directory, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: 'Bearer ' + states.user_token,
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(({parents}) => {
+  //       console.log(
+  //         '🚀 ~ file: Directories.js:190 ~ .then ~ parents:',
+  //         parents,
+  //       );
+  //       let Array = [];
 
-        for (let i = 0; i < parents.length; i++) {
-          if (
-            parents[i].title !== 'Construction' &&
-            parents[i].title !== 'Entertainment' &&
-            parents[i].title !== 'Health & Fitness'
-          ) {
-            Array.push(parents[i]);
-          }
-        }
-        console.log(Array);
-        setDirectorydata(Array);
-      })
-      .catch(error => {
-        return console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
+  //       for (let i = 0; i < parents.length; i++) {
+  //         if (
+  //           parents[i].title !== 'Construction' &&
+  //           parents[i].title !== 'Entertainment' &&
+  //           parents[i].title !== 'Health & Fitness'
+  //         ) {
+  //           Array.push(parents[i]);
+  //         }
+  //       }
+  //       console.log(Array);
+  //       setDirectorydata(Array);
+  //     })
+  //     .catch(error => {
+  //       return console.error(error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
+
+
+  // const getDirectoriesData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(APIS.get_directory, {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: 'Bearer ' + states.user_token,
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch directory data');
+  //     }
+  
+  //     const { parents } = await response.json();
+  
+  //     const filteredParents = parents.filter(parent => (
+  //       parent.title !== 'Construction' &&
+  //       parent.title !== 'Entertainment' &&
+  //       parent.title !== 'Health & Fitness'
+  //     ));
+  
+  //     console.log('Filtered parents:', filteredParents);
+  //     setDirectorydata(filteredParents);
+  //   } catch (error) {
+  //     console.error('Error fetching directory data:', error);
+  //     // Handle the error appropriately, e.g., display an error message
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const getDirectoriesData = async () => {
+    try {
+      // Validate the token before making the API call
+      if (!states.user_token) {
+        throw new Error('User token is missing');
+      }
+  
+      setLoading(true);
+  
+      const response = await fetch(APIS.get_directory, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${states.user_token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
+  
+      if (!response.ok) {
+        // Include response status and status text for more detailed error
+        throw new Error(`Failed to fetch directory data: ${response.status} ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+  
+      // Ensure parents exist in the response data
+      const filteredParents = data.parents?.filter(parent => (
+        parent.title !== 'Construction' &&
+        parent.title !== 'Entertainment' &&
+        parent.title !== 'Health & Fitness'
+      )) || [];
+  
+      console.log('Filtparentsered :', filteredParents);
+      setDirectorydata(filteredParents);
+    } catch (error) {
+      console.error('Error fetching directory data:', error.message);
+      // You might want to set some error state here to display a message in the UI
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   useEffect(() => {
     getDirectoriesData();

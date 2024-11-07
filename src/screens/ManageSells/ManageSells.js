@@ -114,7 +114,7 @@ function ManageSells(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/buy-save-page', requestOptions)
+    fetch('https://mybahria.com.pk/api/buy-save-page', requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
@@ -138,7 +138,7 @@ function ManageSells(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/delete-buy', requestOptions)
+    fetch('https://mybahria.com.pk/api/delete-buy', requestOptions)
       .then(response => response.json())
       .then(({delete_buy}) => {
         if (delete_buy === 'Delete buy has been successfully') {
@@ -160,7 +160,7 @@ function ManageSells(props) {
       redirect: 'follow',
     };
     fetch(
-      `http://mybahria.assanhissab.com/api/manage-sells/${states.user_data?.id}`,
+      `https://mybahria.com.pk/api/manage-sells/${states.user_data?.id}`,
       requestOptions,
     )
       .then(response => response.json())
@@ -211,7 +211,7 @@ function ManageSells(props) {
         body: formdata,
         redirect: 'follow',
       };
-      fetch('http://mybahria.assanhissab.com/api/add-sells', requestOptions)
+      fetch('https://mybahria.com.pk/api/add-sells', requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.status === 'success') {
@@ -306,7 +306,7 @@ function ManageSells(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-sell-category',
+      'https://mybahria.com.pk/api/dropdown-sell-category',
       requestOptions,
     )
       .then(response => response.json())
@@ -776,6 +776,7 @@ function ManageSells(props) {
               </Picker>
             </View>
             <View style={styles2.pickerContainer}>
+           
               <Picker
                 selectedValue={selectedResident}
                 onValueChange={(itemValue, itemIndex) => setResident(itemValue)}
@@ -785,7 +786,7 @@ function ManageSells(props) {
                   color="#a5a0a0"
                   label="Select Published Type"
                   value="key0"
-                  enabled={false}
+                  enabled={true}
                 />
                 <Picker.Item color="#a5a0a0" label="Publish" value="1" />
                 <Picker.Item color="#a5a0a0" label="Not Publish" value="0" />
@@ -992,7 +993,7 @@ function ManageSells(props) {
                   color="#a5a0a0"
                   label="Select Published Type"
                   value="key0"
-                  enabled={false}
+                  enabled={true}
                 />
                 <Picker.Item color="#a5a0a0" label="Publish" value="0" />
                 <Picker.Item color="#a5a0a0" label="Not Publish" value="1" />

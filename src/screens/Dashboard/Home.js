@@ -135,6 +135,7 @@ function Home(props) {
       .then(response => response.json())
       // .then(res => res)
       .then(({properties}) => {
+        console.log(properties, 'homeproperties');
         return {properties};
       })
       .catch(error => {
@@ -166,16 +167,46 @@ function Home(props) {
   //   // setPropertyUpdataData([]);
   // };
 
-  useEffect(async () => {
-    const {hot_news} = await getAllNews();
-    const {properties} = await getAllProperties();
+  // useEffect(
+    
+  //   async () => {
+  //   const {hot_news} = await getAllNews();
+  //   const {properties} = await getAllProperties();
 
-    setAllNews(hot_news);
-    setAllPropperties(properties);
+  //   setAllNews(hot_news);
+  //   setAllPropperties(properties);
 
-    setTimeout(() => {}, 500);
+  //   setTimeout(() => {}, 500);
+  // }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { hot_news } = await getAllNews();
+        const { properties } = await getAllProperties();
+  
+        setAllNews(hot_news);
+        setAllPropperties(properties);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle the error appropriately, e.g., display an error message
+      } finally {
+        // If you want to add a delay before setting loading to false, you can use setTimeout
+        setTimeout(() => {
+          // setLoading(false);
+        }, 500);
+      }
+    };
+  
+    fetchData();
+  
+    // Optionally, if you need cleanup logic, return a function from useEffect
+    // return () => {
+    //   // cleanup logic here
+    // };
   }, []);
-
+  
   return (
     <TouchableWithoutFeedback
       style={{zIndex: 1, backgroundColor: 'red', flex: 1, elevation: 10}}

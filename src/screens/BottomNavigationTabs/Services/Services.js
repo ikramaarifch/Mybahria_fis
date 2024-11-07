@@ -63,15 +63,31 @@ function Services(props) {
     // console.log('DATA', DATA);
   };
 
-  useEffect(async () => {
-    setLoading(true);
-    getService();
+  // useEffect(async () => {
+  //   setLoading(true);
+  //   getService();
+  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        await getService();
+      } catch (error) {
+        console.error('Error fetching service data:', error);
+        // Handle the error appropriately, e.g., display an error message
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
   }, []);
+  
 
-  useEffect(async () => {
-    setLoading(true);
-    getService();
-  }, []);
+  // useEffect(async () => {
+  //   setLoading(true);
+  //   getService();
+  // }, []);
 
   const updateSearch = search => {
     setSearch({search});
@@ -108,7 +124,7 @@ function Services(props) {
         });
       }}
       style={styles.itemsStyle}>
-      <MaterialIcons name={DATA[index].icon} size={28} color="firebrick" />
+      {/* <MaterialIcons name={DATA[index].icon} size={28} color="firebrick" /> */}
 
       <Text
         style={{

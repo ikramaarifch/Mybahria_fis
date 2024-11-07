@@ -10,7 +10,7 @@ function PostsSample(props) {
   // console.log('ITEM PostsSample : ', props.item);
   // const NAVIGATION = props.navigation;
 
-  const IMAGE_BASE_URL = 'http://mybahria.assanhissab.com/storage/avatar/';
+  const IMAGE_BASE_URL = 'https://mybahria.com.pk/storage/avatar/';
   // const IMAGE = IMAGE_BASE_URL + props.item.image;
 
   return (

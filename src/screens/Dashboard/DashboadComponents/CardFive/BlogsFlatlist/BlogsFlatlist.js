@@ -88,7 +88,7 @@ function BlogsFlatlist(props) {
   //   },
   // ]);
 
-  const IMAGES_BASE_URL = 'http://mybahria.assanhissab.com/storage/images/';
+  const IMAGES_BASE_URL = 'https://mybahria.com.pk/storage/images/';
   const [currentItem, setCurrentItem] = useState([]);
   // const [isLoading, setLoading] = useState(true);
 
@@ -202,7 +202,7 @@ function BlogsFlatlist(props) {
                       borderRadius: 4,
                     }}
                     source={{
-                      uri: `http://mybahria.assanhissab.com/assets/uploads/${currentItem.image}`,
+                      uri: `https://mybahria.com.pk/assets/uploads/${currentItem.image}`,
                     }}
                   />
                   <View

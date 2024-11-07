@@ -22,7 +22,7 @@ function PictureCardSample(props) {
   // console.log(props,'Ye Picture card sample k props');
   const states = useSelector(state => state.ConstantReducer);
   const item = props.ITEM;
-  const IMAGES_BASE_URL = 'http://mybahria.assanhissab.com/assets/uploads/';
+  const IMAGES_BASE_URL = 'https://mybahria.com.pk/assets/uploads/';
 
   const [visibility, setVisibility] = useState(false);
   const [isLoading, setLoading] = useState(true);

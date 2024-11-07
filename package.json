@@ -13,7 +13,9 @@
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-async-storage/async-storage": "^1.22.2",
     "@react-native-community/masked-view": "^0.1.11",
+    
     "@react-native-community/netinfo": "^11.3.0",
+   
     "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/bottom-tabs": "^6.5.14",
     "@react-navigation/drawer": "^6.6.9",
@@ -66,7 +68,8 @@
     "redux-thunk": "^3.1.0",
     "rn-viewpager": "^1.2.9",
     "styled-components": "^6.1.8",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

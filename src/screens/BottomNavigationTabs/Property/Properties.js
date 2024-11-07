@@ -20,6 +20,7 @@ import {PROPERTIES} from '../../../utils/URLS';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 import {APIS} from '../../../utils/URLS/Urls';
 import {ToastAndroid} from 'react-native';
+import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 function Properties(props) {
   const states = useSelector(state => state.ConstantReducer);
@@ -110,10 +111,10 @@ function Properties(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/area', requestOptions)
+    fetch('https://mybahria.com.pk/api/area', requestOptions)
       .then(response => response.json())
       .then(({area}) => setAreas(area))
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('areaerror', error));
   };
 
   const SearchProperty = () => {
@@ -133,7 +134,7 @@ function Properties(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/search-property', requestOptions)
+    fetch('https://mybahria.com.pk/api/search-property', requestOptions)
       .then(response => response.json())
       .then(({details}) => {
         if (details.length != 0) {
@@ -144,7 +145,7 @@ function Properties(props) {
           setAllPropperties(oldProperties);
         }
       })
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('search error', error));
   };
   const renderNewsItem = ({item}) => {
     return (
@@ -178,13 +179,12 @@ function Properties(props) {
     })
       .then(response => response.json())
       .then(({properties}) => {
-        console.log(properties, 'Properties');
+        console.log(properties, 'proprorpropro ');
         setAllPropperties(properties);
         setOldProperties(properties);
-        // console.log(properties);
       })
       .catch(error => {
-        return console.error(error);
+        return console.error('getall',error);
       })
       .finally(() => {
         setLoading(false);
@@ -217,7 +217,7 @@ function Properties(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-property-size',
+      'https://mybahria.com.pk/api/dropdown-property-size',
       requestOptions,
     )
       .then(response => response.json())
@@ -225,7 +225,7 @@ function Properties(props) {
         console.log(property_size, 'Properties size');
         setSizes(property_size);
       })
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('sizeerror', error));
   };
 
   const getProperType = () => {
@@ -239,14 +239,15 @@ function Properties(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/dropdown-property-type',
+      'https://mybahria.com.pk/api/dropdown-property-type',
       requestOptions,
     )
       .then(response => response.json())
       .then(({property_type}) => {
         setProperties(property_type);
+        console.log('property_type', property_type);
       })
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('typeerror', error));
   };
   let cityItems = cities.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.name} />;
@@ -269,8 +270,8 @@ function Properties(props) {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1}}>
+    
+      <View style={{flex:1}}>
         {isLoading ? (
           <ActivityIndicator
             size="large"
@@ -365,7 +366,7 @@ function Properties(props) {
               </View>
 
               <View style={styles.pickerBody}>
-                <Text style={styles.pickerTitleStyle}>Select Loction: </Text>
+                <Text style={styles.pickerTitleStyle}>Select Location: </Text>
                 <Picker
                   style={{
                     height: 40,
@@ -492,7 +493,7 @@ function Properties(props) {
           </View>
         </Modal>
       </View>
-    </SafeAreaView>
+    
   );
 }
 const styles = StyleSheet.create({

@@ -96,7 +96,7 @@ function RegisterBusiness(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/area', requestOptions)
+    fetch('https://mybahria.com.pk/api/area', requestOptions)
       .then(response => response.json())
       .then(({area}) => setAreas(area))
       .catch(error => console.log('error', error));
@@ -126,7 +126,7 @@ function RegisterBusiness(props) {
       redirect: 'follow',
     };
 
-    fetch('http://mybahria.assanhissab.com/api/city', requestOptions)
+    fetch('https://mybahria.com.pk/api/city', requestOptions)
       .then(response => response.json())
       .then(res => {
         console.log(res.bahriaCities, 'BAHRIA');
@@ -145,7 +145,7 @@ function RegisterBusiness(props) {
       redirect: 'follow',
     };
     fetch(
-      `http://mybahria.assanhissab.com/api/service_category/get/${id}`,
+      `https://mybahria.com.pk/api/service_category/get/${id}`,
       requestOptions,
     )
       .then(response => response.json())
@@ -218,7 +218,7 @@ function RegisterBusiness(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/add-service', requestOptions)
+    fetch('https://mybahria.com.pk/api/add-service', requestOptions)
       .then(response => response.json())
       .then(({status}) => {
         console.log(status);
@@ -243,7 +243,7 @@ function RegisterBusiness(props) {
     };
 
     fetch(
-      'http://mybahria.assanhissab.com/api/main_service_category/get',
+      'https://mybahria.com.pk/api/main_service_category/get',
       requestOptions,
     )
       .then(response => response.json())

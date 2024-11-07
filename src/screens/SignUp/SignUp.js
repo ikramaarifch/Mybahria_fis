@@ -349,7 +349,7 @@ function SignUp(props) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/area', requestOptions)
+    fetch('https://mybahria.com.pk/api/area', requestOptions)
       .then(response => response.json())
       .then(({area}) => setAreas(area))
       .catch(error => console.log('error', error));

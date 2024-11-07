@@ -23,6 +23,8 @@ const {height, width} = Dimensions.get('window');
 
 function ServicesItemSample(props) {
   const item = props.item;
+  console.log('Image URL:', `https://mybahria.com.pk/public/assets/uploads/${item.img_src}`);
+
   return (
     <View
       style={{
@@ -172,7 +174,7 @@ function ServicesItemSample(props) {
               borderRadius: 5,
             }}
             source={{
-              uri: `http://mybahria.assanhissab.com/assets/uploads/${item.img_src}`,
+              uri: `https://mybahria.com.pk/public/assets/uploads/${item.img_src}`,
             }}
           />
         </View>

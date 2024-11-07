@@ -35,13 +35,31 @@ function CardOneComponent(props) {
   } = props;
   console.log(item, 'line 36');
 
-  useEffect(async () => {
-    setLoading(true);
-    // getHealth();
-    getAllDirectoriesData();
-    // getConstruction();
-    props.navigation.setOptions({title: 'Directory'});
+  // useEffect(async () => {
+  //   setLoading(true);
+  //   // getHealth();
+  //   getAllDirectoriesData();
+  //   // getConstruction();
+  //   props.navigation.setOptions({title: 'Directory'});
+  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      // await getHealth();
+      await getAllDirectoriesData();
+      // await getConstruction();
+      props.navigation.setOptions({ title: 'Directory' });
+      setLoading(false); // Assuming setLoading(false) is called when data fetching is done
+    }
+    
+    fetchData();
+  
+    // Optionally, if you need cleanup logic, return a function from useEffect
+    // return () => {
+    //   // cleanup logic here
+    // };
   }, []);
+  
 
   const call = () => {
     console.log('contaced Successfully');
@@ -120,77 +138,153 @@ function CardOneComponent(props) {
   //   })
   // }
 
+
+
+
+  // const getAllDirectoriesData = async () => {
+  //   await fetch('http://mybahria.assanhissab.com/api/new-directory', {
+  //     headers: {
+  //       Authorization: 'Bearer ' + states.user_token,
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   });
+  //   console
+  //     .log('tokenstatus', states.user_token)
+  //     .then(response => response.json())
+  //     .then(({parents}) => {
+  //       let TITLE = '';
+
+  //       switch (item) {
+  //         case 'Health Care':
+  //           console.log('Health Care SWITCH');
+  //           TITLE = 'Health & Fitness';
+  //           break;
+  //         case 'Entertainment':
+  //           console.log('Enter Care SWITCH');
+  //           TITLE = 'Entertainment';
+  //           break;
+  //         case 'Constructions':
+  //           TITLE = 'Constructions';
+  //           break;
+  //         case 'Construction':
+  //           TITLE = 'Construction';
+  //           break;
+  //         case 'Services':
+  //           TITLE = 'services';
+  //           break;
+  //         case 'Business':
+  //           TITLE = 'Businesses';
+  //           break;
+  //         case 'Property Portal':
+  //           TITLE = 'Property Portal  ';
+  //           break;
+  //         case 'Sports':
+  //           TITLE = 'Sports';
+  //           break;
+  //         case 'Constructions':
+  //           TITLE = 'Constructions';
+
+  //           break;
+  //         case 'Food & Drinks':
+  //           TITLE = 'Food And Drinks';
+  //           break;
+
+  //         default:
+  //           TITLE = 'Sports';
+  //           break;
+  //       }
+
+  //       TITLE != 'No Data Found' &&
+  //         parents.map(
+  //           i =>
+  //             i.title === TITLE
+  //               ? (setNewsUpdataData(i.data), console.log(i.data, 'DATA'))
+  //               : null,
+
+  //           // console.log('line 156', newUpdateData),
+  //         );
+  //       // return {properties};
+  //     })
+  //     .catch(error => {
+  //       return console.error(error);
+  //     })
+  //     .finally(() => setLoading(false));
+
+  //   // console.log('DATA', DATA);
+  //   // return DATA;
+  // };
+
   const getAllDirectoriesData = async () => {
-    await fetch('http://mybahria.assanhissab.com/api/new-directory', {
-      headers: {
-        Authorization: 'Bearer ' + states.user_token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(({parents}) => {
-        let TITLE = '';
-
-        switch (item) {
-          case 'Health Care':
-            console.log('Health Care SWITCH');
-            TITLE = 'Health & Fitness';
-            break;
-          case 'Entertainment':
-            console.log('Enter Care SWITCH');
-            TITLE = 'Entertainment';
-            break;
-          case 'Constructions':
-            TITLE = 'Constructions';
-            break;
-          case 'Construction':
-            TITLE = 'Construction';
-            break;
-          case 'Services':
-            TITLE = 'services';
-            break;
-          case 'Business':
-            TITLE = 'Businesses';
-            break;
-          case 'Property Portal':
-            TITLE = 'Property Portal  ';
-            break;
-          case 'Sports':
-            TITLE = 'Sports';
-            break;
-          case 'Constructions':
-            TITLE = 'Constructions';
-
-            break;
-          case 'Food & Drinks':
-            TITLE = 'Food And Drinks';
-            break;
-
-          default:
-            TITLE = 'Sports';
-            break;
+    try {
+      setLoading(true);
+      const response = await fetch('https://mybahria.com.pk/api/new-directory', {
+        headers: {
+          Authorization: 'Bearer ' + states.user_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('usertoken', states.user_token)
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch data okok');
+      }
+  
+      const { parents } = await response.json();
+  
+      let TITLE = '';
+  
+      switch (item) {
+        case 'Health Care':
+          TITLE = 'Health & Fitness';
+          break;
+        case 'Entertainment':
+          TITLE = 'Entertainment';
+          break;
+        case 'Constructions':
+        case 'Construction':
+          TITLE = 'Construction';
+          break;
+        case 'Services':
+          TITLE = 'services';
+          break;
+        case 'Business':
+          TITLE = 'Businesses';
+          break;
+        case 'Property Portal':
+          TITLE = 'Property Portal  ';
+          break;
+        case 'Sports':
+          TITLE = 'Sports';
+          break;
+        case 'Food & Drinks':
+          TITLE = 'Food And Drinks';
+          break;
+        default:
+          TITLE = 'Sports';
+          break;
+      }
+  
+      if (TITLE !== 'No Data Found') {
+        const dataToUpdate = parents.find(parent => parent.title === TITLE);
+        if (dataToUpdate) {
+          setNewsUpdataData(dataToUpdate.data);
+          console.log(dataToUpdate.data, 'DATA');
         }
-
-        TITLE != 'No Data Found' &&
-          parents.map(
-            i =>
-              i.title === TITLE
-                ? (setNewsUpdataData(i.data), console.log(i.data, 'DATA'))
-                : null,
-
-            // console.log('line 156', newUpdateData),
-          );
-        // return {properties};
-      })
-      .catch(error => {
-        return console.error(error);
-      })
-      .finally(() => setLoading(false));
-
-    // console.log('DATA', DATA);
-    // return DATA;
+      }
+    } catch (error) {
+      console.error('Error fetching directory data:', error);
+      // Handle the error appropriately, e.g., display an error message
+    } finally {
+      setLoading(false);
+    }
   };
+  
+
+
+
+  
 
   const renderHeader = () => (
     <View
@@ -274,6 +368,7 @@ function CardOneComponent(props) {
             fontWeight: 'bold',
             textAlign: 'left',
             // backgroundColor: '#ddd',
+            color:'black',
             flex: 1,
             marginHorizontal: 16,
           }}>

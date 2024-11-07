@@ -16,6 +16,7 @@ import {SearchBar} from 'react-native-elements';
 import {APIS} from '../../../utils/URLS/Urls';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 import styles from '../../Dashboard/CardOneComponent/CardOneComponentSample/styles';
+
 import {
   View,
   Share,
@@ -125,7 +126,7 @@ function DirectoryPreView(props) {
   // }
 
   const getAllDirectoriesData = async () => {
-    await fetch(`http://mybahria.assanhissab.com/api/directory-listing/${id}`, {
+    await fetch(`https://mybahria.com.pk/api/directory-listing/${id}`, {
       headers: {
         Authorization: 'Bearer ' + states.user_token,
         Accept: 'application/json',

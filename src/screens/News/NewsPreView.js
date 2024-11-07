@@ -7,7 +7,7 @@ import {APIS} from '../../utils/URLS/Urls';
 
 function NewsPreView(props) {
   const ITEM = props.route.params.ITEM;
-  const BASE_IMAGES_URL = 'http://mybahria.assanhissab.com/storage/images/';
+  const BASE_IMAGES_URL = 'https://mybahria.com.pk/storage/images/';
 
   const Title = ITEM.title === undefined ? '' : ITEM.title;
   // const onPress = props.OP;

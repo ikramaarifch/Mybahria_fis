@@ -33,7 +33,7 @@ function PasswordChange({route, navigation}) {
       body: formdata,
       redirect: 'follow',
     };
-    fetch('http://mybahria.assanhissab.com/api/new-password', requestOptions)
+    fetch('https://mybahria.com.pk/api/new-password', requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.status) {
