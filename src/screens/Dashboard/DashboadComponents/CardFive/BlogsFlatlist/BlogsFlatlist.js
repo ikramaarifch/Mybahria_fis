@@ -10,9 +10,10 @@ import {
   ScrollView,
   BackHandler,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-
+import RenderHTML from 'react-native-render-html';
 // onpenCloseModal
 import {connect} from 'react-redux';
 import ItemSample from '../ItemSample/ItemSample';
@@ -31,6 +32,9 @@ function BlogsFlatlist(props) {
   const [currentItemVisibility, setCurrentItemVisibility] = useState(false);
   const [Loading, setLoading] = useState(false);
 
+  const [data, setData] = useState(null);
+  const contentWidth = Dimensions.get('window').width;
+
   const getAllBlogs = async () => {
     await fetch(APIS.get_all_blogs, {
       method: 'GET',
@@ -42,7 +46,7 @@ function BlogsFlatlist(props) {
     })
       .then(response => response.json())
       .then(blogs => {
-        setBlogsList(blogs.blogs), console.log(blogsList);
+        setBlogsList(blogs.blogs), console.log('bloglist',blogsList);
       })
       .catch(error => {
         return console.error(error);
@@ -116,6 +120,7 @@ function BlogsFlatlist(props) {
   useEffect(() => {
     setLoading(true);
     getAllBlogs();
+    setData(blogsList);
 
     // setTimeout(() => {
     //   setLoading(false);
@@ -202,7 +207,7 @@ function BlogsFlatlist(props) {
                       borderRadius: 4,
                     }}
                     source={{
-                      uri: `https://mybahria.com.pk/assets/uploads/${currentItem.image}`,
+                      uri: `https://mybahria.com.pk/public/assets/uploads/${currentItem.image}`,
                     }}
                   />
                   <View
@@ -224,23 +229,11 @@ function BlogsFlatlist(props) {
                     <Text style={styles.time}>{currentItem.blog_date}</Text>
                   </View>
                   <View style={{marginHorizontal: 12}}>
-                    <HTMLView
-                      bullet
-                      stylesheet={webViewStyle}
-                      // lineBreak={false}
-                      // paragraphBreak
-                      addLineBreaks={false}
-                      paragraphBreak={false}
-                      // value={ITEM.job_description}
-                      value={
-                        '<div>' +
-                        currentItem.description.replace(
-                          '/<br|\n|\rs*\\?>/g',
-                          '',
-                        ) +
-                        '</div>'
-                      }
-                    />
+                  <RenderHTML
+        contentWidth={contentWidth}
+        source={{ html: currentItem.description }}
+        baseStyle={{ color: 'black' }} // Change the color to your desired color
+      />
                   </View>
 
                   {/* <Text

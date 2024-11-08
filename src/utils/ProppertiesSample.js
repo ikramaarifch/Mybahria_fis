@@ -141,7 +141,7 @@ function ProppertiesSample(props) {
 
           <View style={{position: 'absolute', left: 8, bottom: 8}}>
             <Text style={{fontSize: 11, color: 'gray'}}>
-              {/* Location: {Location} */}
+              {ITEM.property_type}
             </Text>
             <Text style={{fontSize: 11, color: 'black'}}>
               Added: {ITEM.dayDifference} days ago

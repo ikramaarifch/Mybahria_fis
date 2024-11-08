@@ -15,6 +15,7 @@ import styles from './styles';
 import {APIS} from '../../../../utils/URLS/Urls';
 
 function CardOneComponentSample(props) {
+  console.log(props);
   const DefaultImage = require('../../../../Drawables/profile_pic.png');
   const IMAGE = (props.IMAGE === '') | '' ? DefaultImage : props.IMAGE;
   const Title = (props.Title === '') | '' ? 'null' : props.Title;

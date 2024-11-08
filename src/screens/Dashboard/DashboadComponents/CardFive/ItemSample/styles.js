@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 12,
     marginVertical: 16,
-
+    color:'black',
     textAlign: 'justify',
   },
   innerBody: {

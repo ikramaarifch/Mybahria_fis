@@ -83,17 +83,14 @@ function RegisterBusiness(props) {
   ]);
   const Areadropdown = id => {
     var myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${user_token}`);
-    myHeaders.append(
+    // myHeaders.append('Authorization', `Bearer ${user_token}`);
+    myHeaders.append("Authorization",
       'Cookie',
       'XSRF-TOKEN=eyJpdiI6IlpqNXIzVDhuYitXOXcyencyNHhZZmc9PSIsInZhbHVlIjoiNWVqeW1Oam9hQjJnV0RCUndPNlZEOTFmeCtYaGhUL1FmNkh3L2ppVmRBMHdwMVcvWFdSQnpMam9yQkVQSS9vUnN1SzdiSDlGTkRNY0RmVHViZ1NzZTBiTDNxYXdLUjFUSXgzcWkwQlJmaDFKL0ZnMEhtTUlVanlsWlBYbU1kUksiLCJtYWMiOiIwNzY5YjQzMGZkYzBmNzgyOTU1ZGY0NmJjNThhMWUyNjY0YzM4ZDNkYzU4YjdjZmZkMjFkODYxM2RmMTFjMzExIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6ImFyTCtnNzJ2Sm95RTZNWk1EN3NadUE9PSIsInZhbHVlIjoidHFvd1NvTDYvT1hXMTd0RURQUHpvTE5VZHY2cmpxVVVsUVlCNWszZCtzT0xkZnd5R1BjOEkyVzZTZ0psaWpGZTNrUE1jNWVqazdLemRrYTlHNWQzTFNFbElrVFNlR0VLWSt3WkJBSEFGbU50Nkc1R2FUdDBneHp5NldsL3ZwME4iLCJtYWMiOiIwZjIxZmJlN2IyMzdkMWE2M2FkYTZiMDJjZWUyNTNjNzc5NWFmNzMzZWJjNTllMGU1Mjc0MGRhMTU1ZWRlYmI1IiwidGFnIjoiIn0%3D',
     );
-    var formdata = new FormData();
-    formdata.append('city_id', id);
     var requestOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: myHeaders,
-      body: formdata,
       redirect: 'follow',
     };
     fetch('https://mybahria.com.pk/api/area', requestOptions)
@@ -101,7 +98,6 @@ function RegisterBusiness(props) {
       .then(({area}) => setAreas(area))
       .catch(error => console.log('error', error));
   };
-
   let AreaItems = Areas.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.name} />;
   });

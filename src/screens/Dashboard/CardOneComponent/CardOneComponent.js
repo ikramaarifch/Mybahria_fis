@@ -226,6 +226,7 @@ function CardOneComponent(props) {
         },
       });
       console.log('usertoken', states.user_token)
+      console.log(response, 'response');
   
       if (!response.ok) {
         throw new Error('Failed to fetch data okok');
@@ -237,12 +238,12 @@ function CardOneComponent(props) {
   
       switch (item) {
         case 'Health Care':
-          TITLE = 'Health & Fitness';
+          TITLE = 'HealthCare';
           break;
         case 'Entertainment':
           TITLE = 'Entertainment';
           break;
-        case 'Constructions':
+        
         case 'Construction':
           TITLE = 'Construction';
           break;
@@ -381,7 +382,7 @@ function CardOneComponent(props) {
 
   // console.log(newUpdateData, 'newUpdateData');
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <View style={{flex: 1, backgroundColor: '#ffff'}}>
       {/* <FlatList
         style={{width: '100%'}}
         data={shownData}

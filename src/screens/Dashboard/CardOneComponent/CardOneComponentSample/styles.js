@@ -34,19 +34,21 @@ const styles = StyleSheet.create({
     marginVertical: 3,
     flexDirection: 'row',
     alignItems: 'center',
+    color:'black',
   },
   headerTitle: {
     fontWeight: 'bold',
     fontSize: 18,
+    color:'black',
   },
   headerDescription: {
     color: 'gray',
     fontSize: 12,
   },
 
-  location: {marginHorizontal: 4, fontSize: 10},
-  phoneNo: {marginHorizontal: 4, fontSize: 10},
-  mail: {marginHorizontal: 4, fontSize: 10},
+  location: {marginHorizontal: 4, fontSize: 10, color:'black'},
+  phoneNo: {marginHorizontal: 4, fontSize: 10, color:'black'},
+  mail: {marginHorizontal: 4, fontSize: 10, color:'black'},
 
   btns: {
     marginHorizontal: 2,

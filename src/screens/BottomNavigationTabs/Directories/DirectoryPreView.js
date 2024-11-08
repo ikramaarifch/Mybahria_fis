@@ -220,7 +220,6 @@ function DirectoryPreView(props) {
                   color="firebrick"
                   size={14}
                 />
-
                 <Text style={styles.location}>{item?.address1}</Text>
               </>
             )}
@@ -240,7 +239,7 @@ function DirectoryPreView(props) {
             item?.phoneno === null ? null : (
               <>
                 <MaterialCommunityIcons
-                  name="cellphone-iphone"
+                  name="phone-classic"
                   color="firebrick"
                   size={14}
                 />

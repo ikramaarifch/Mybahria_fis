@@ -45,7 +45,7 @@ function ItemSample(props) {
             borderRadius: 4,
           }}
           //   source={require('../../../../../Drawables/')}
-          source={{uri: `https://mybahria.com.pk/assets/uploads/${ITEM.image}`}}
+          source={{uri: `https://mybahria.com.pk/public/assets/uploads/${ITEM.image}`}}
         />
         <View
           style={{
@@ -72,7 +72,7 @@ function ItemSample(props) {
               color="gray"
             />
             <Text style={styles.time}>{ITEM.blog_date}</Text>
-            <Text style={styles.author}>{AUTH}</Text>
+            <Text style={styles.author}>{ITEM.author_name}</Text>
           </View>
         </View>
       </View>

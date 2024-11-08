@@ -582,6 +582,10 @@ function ManageProperties(props) {
   let propertiesItems = Properties.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.name} />;
   });
+
+
+
+
   return isLoading ? (
     <ActivityIndicator size="large" color="red" style={{marginVertical: 50}} />
   ) : (

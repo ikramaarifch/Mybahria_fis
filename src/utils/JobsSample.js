@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import HTMLView from 'react-native-htmlview';
 
 import {
@@ -9,12 +9,14 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import RenderHTML from 'react-native-render-html';
 
 function JobsSample(props) {
-  const IMAGES_BASE_URL = 'https://mybahria.com.pk/storage/images/';
+  const IMAGES_BASE_URL = 'https://mybahria.com.pk/public/assets/uploads/';
   const ITEM = props.item;
   console.log('props:', ITEM);
   const [modalVisibility, setModalVisibility] = useState(false);
@@ -22,6 +24,13 @@ function JobsSample(props) {
     setModalVisibility(!modalVisibility);
     console.log(modalVisibility);
   };
+
+  const [data, setData] = useState(null);
+  
+
+  useEffect(() => {
+    setData(ITEM);
+  })
   return (
     <TouchableOpacity onPress={MODAL_HANDLER} style={styles.body}>
       <View style={styles.innerView}>
@@ -48,6 +57,7 @@ function JobsSample(props) {
 }
 
 function MODAL_VIEW(props) {
+  const contentWidth = Dimensions.get('window').width;
   const ITEM = props.ITEM;
   return (
     <Modal
@@ -151,20 +161,11 @@ function MODAL_VIEW(props) {
                 // backgroundColor: '#dddddd50',
                 paddingHorizontal: 12,
               }}>
-              <HTMLView
-                bullet
-                stylesheet={webViewStyle}
-                // lineBreak={false}
-                // paragraphBreak
-                addLineBreaks={false}
-                paragraphBreak={false}
-                // value={ITEM.job_description}
-                value={
-                  '<div>' +
-                  ITEM.job_description.replace('/<br|\n|\rs*\\?>/g', '') +
-                  '</div>'
-                }
-              />
+              <RenderHTML
+        contentWidth={contentWidth}
+        source={{ html: ITEM.job_description }}
+        baseStyle={{ color: 'black' }} // Change the color to your desired color
+      />
             </View>
           </ScrollView>
           {/* <Text
