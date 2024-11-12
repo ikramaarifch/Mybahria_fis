@@ -388,15 +388,23 @@ function StackHeader(props) {
                     </Text>
 
                     <View>
-                      {item.phone.split(',').map(i => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            Linking.openURL(`tel:${i}`);
-                          }}>
-                          <Text style={{color: '#cc0000', width:110}}>{i}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
+  {item.phone.split('/').map((phoneNumber, index) => {
+    const trimmedNumber = phoneNumber.trim();  // Remove any extra spaces
+    if (trimmedNumber) {  // Check if the number is not empty
+      return (
+        <TouchableOpacity
+          key={index}
+          onPress={() => {
+            Linking.openURL(`tel:${trimmedNumber}`);
+          }}
+        >
+          <Text style={{ color: '#cc0000', width: 110 }}>{trimmedNumber}</Text>
+        </TouchableOpacity>
+      );
+    }
+  })}
+</View>
+
                   </View>
                   {/* <View
                     style={{

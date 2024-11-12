@@ -33,6 +33,8 @@ import {store} from '../../redux/store';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 import {BackHandler} from 'react-native';
 import {Alert} from 'react-native';
+import Buy_sellSlider from '../../utils/Buy_sellSlider';
+// import GenericTouchable from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
 
 const newDimensions = {
   HEIHGT: 30,
@@ -77,6 +79,8 @@ function Home(props) {
   const [allProperties, setAllPropperties] = useState([]);
   const [newUpdateData, setNewsUpdataData] = useState([]);
   const [propertyUpdateData, setPropertyUpdataData] = useState([]);
+  const [buySell, setBuySell] = useState([]);
+
 
   const getAllNews = async () => {
     const DATA = await fetch(APIS.get_hot_news_list, {
@@ -124,6 +128,42 @@ function Home(props) {
 
     return () => backHandler.remove();
   }, []);
+
+
+
+  const getBuyandSell = async () => {
+    setLoading(true);
+  
+    const DATA = await fetch('https://mybahria.com.pk/api/buy-and-sell', {
+      headers: {
+        Authorization: 'Bearer ' + states.user_token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then(({ bahria_sells }) => {
+        console.log('bahriasells:', bahria_sells);
+        setBuySell(bahria_sells);
+        return { bahria_sells };
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  
+    return DATA;
+  };
+  
+
+  
   const getAllProperties = async () => {
     const DATA = await fetch(APIS.get_hot_properties_list, {
       headers: {
@@ -185,9 +225,12 @@ function Home(props) {
       try {
         const { hot_news } = await getAllNews();
         const { properties } = await getAllProperties();
+        // const { buysell } = await getBuyandSell();
+
   
         setAllNews(hot_news);
         setAllPropperties(properties);
+        // setBuySell(buysell);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle the error appropriately, e.g., display an error message
@@ -425,6 +468,23 @@ function Home(props) {
                   </View>
                   <PropertiesSlider
                     allProperties={allProperties}
+                    navigation={props.navigation}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+
+                    marginBottom: 20,
+
+                    width: '100%',
+                  }}>
+                  <View>
+                    <CustomTitle title="Buy & Sell" />
+                  </View>
+
+                  <Buy_sellSlider
+                    allNews={allNews}
                     navigation={props.navigation}
                   />
                 </View>
