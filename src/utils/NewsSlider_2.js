@@ -99,26 +99,15 @@ function NewsSlider_2(props) {
   const renderNewsItem = ({item, index}) => {
     return (
       <NewsSample
-        // image_path={BASE_IMAGES_URL}
         ITEM={item}
-        // title={item.title}
-        // image={item.image}
-        // time={item.time}
-        // author={item.author}
-        // deatails={item.deatails}
         OP={() => props.navigation.navigate('NewsPreView', {ITEM: item})}
       />
     );
   };
-
-  // isLoading ? (
-  //   <ActivityIndicator size="large" color="red" style={{marginVertical: 50}} />
-  // ) :
   return (
     <View
       style={{
         flex: 1,
-
         // backgroundColor: 'gold',
         width: '100%',
         justifyContent: 'center',
@@ -128,10 +117,6 @@ function NewsSlider_2(props) {
       }}>
       <Carousel
         layout={'default'}
-        // layoutCardOffset={`18`}
-        // layout={'tinder'}
-        // layoutCardOffset={`9`}
-        // ref={carousel}
         data={allNews}
         sliderWidth={width}
         itemWidth={width}
@@ -140,14 +125,7 @@ function NewsSlider_2(props) {
         onSnapToItem={index => setActiveDot(index)}
         autoplay={true}
         loop={true}
-        // snapToInterval={width}
         snapToAlignment="center"
-
-        // lockScrollWhileSnapping={true  }
-        // loopClonesPerSide={1}
-        // autoplay={false}
-        // autoplayInterval={2500}
-        // enableMomentum={false}
       />
       <Pagination
         dotsLength={allNews?.length}

@@ -79,7 +79,7 @@ function Home(props) {
   const [allProperties, setAllPropperties] = useState([]);
   const [newUpdateData, setNewsUpdataData] = useState([]);
   const [propertyUpdateData, setPropertyUpdataData] = useState([]);
-  const [buySell, setBuySell] = useState([]);
+  const [allBuy_Sell, setAllBuy_Sell] = useState([]);
 
 
   const getAllNews = async () => {
@@ -132,11 +132,9 @@ function Home(props) {
 
 
   const getBuyandSell = async () => {
-    setLoading(true);
-  
-    const DATA = await fetch('https://mybahria.com.pk/api/buy-and-sell', {
+    const DATA = await fetch(APIS.get_buy_Sell, {
       headers: {
-        Authorization: 'Bearer ' + states.user_token,
+        Authorization: 'Bearer ' + user_token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -148,19 +146,19 @@ function Home(props) {
         return response.json();
       })
       .then(({ bahria_sells }) => {
-        console.log('bahriasells:', bahria_sells);
-        setBuySell(bahria_sells);
+        console.log('Fetched Buy & Sell data:', bahria_sells);
+        setAllBuy_Sell(bahria_sells); // Setting state here
         return { bahria_sells };
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching buy/sell data:', error);
       })
       .finally(() => {
         setLoading(false);
       });
-  
     return DATA;
   };
+  
   
 
   
@@ -225,12 +223,12 @@ function Home(props) {
       try {
         const { hot_news } = await getAllNews();
         const { properties } = await getAllProperties();
-        // const { buysell } = await getBuyandSell();
+        const { bahria_sells  } = await getBuyandSell();
 
   
         setAllNews(hot_news);
         setAllPropperties(properties);
-        // setBuySell(buysell);
+        setAllBuy_Sell(bahria_sells );
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle the error appropriately, e.g., display an error message
@@ -443,7 +441,7 @@ function Home(props) {
                   style={{
                     flex: 1,
 
-                    marginBottom: 20,
+                    // marginBottom: 5,
 
                     width: '100%',
                   }}>
@@ -460,7 +458,7 @@ function Home(props) {
                 <View
                   style={{
                     flex: 1,
-                    marginBottom: 20,
+                    // marginBottom: 5,
                     width: '100%',
                   }}>
                   <View>
@@ -474,17 +472,14 @@ function Home(props) {
                 <View
                   style={{
                     flex: 1,
-
-                    marginBottom: 20,
-
+                    // marginBottom: 20,
                     width: '100%',
                   }}>
                   <View>
                     <CustomTitle title="Buy & Sell" />
                   </View>
-
                   <Buy_sellSlider
-                    allNews={allNews}
+                    allProperties={allBuy_Sell}
                     navigation={props.navigation}
                   />
                 </View>

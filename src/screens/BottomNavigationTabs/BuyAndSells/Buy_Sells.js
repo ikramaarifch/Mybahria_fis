@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   FlatList,
@@ -11,10 +10,6 @@ import {
   Linking,
   ActivityIndicator,
 } from 'react-native';
-
-import ImageSlider from 'react-native-image-slider';
-import {SliderBox} from 'react-native-image-slider-box';
-
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -32,24 +27,17 @@ import styles from './styles';
 import {applyFilterToSellItems} from '../../../redux/tabs_handler/actions';
 import {connect} from 'react-redux';
 import {APIS} from '../../../utils/URLS/Urls';
-import StartUp_Screen from '../../startUp-screen/StartUp_Screen';
-import {useDispatch, useSelector, useStore} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {ToastAndroid} from 'react-native';
 
 function Buy_Sells(props) {
   const states = useSelector(state => state.ConstantReducer);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const [filterModalVisibility, setfilterModalVisibility] = useState(false);
   const [category, setCategories] = useState([]);
   const [currentItem, setCurrentItem] = useState();
 
-  const [categoryId, setcategoryId] = useState(0);
 
   const [selectedCategory, setCategory] = useState('key0');
-  const [IMAGE, setIMAGE] = useState();
-  const [ITEM, setITEM] = useState();
-  const [RS, setRS] = useState();
-  const [activeButton, setActiveButton] = useState('Description');
   const [search, setSearch] = useState('');
   const [priceTagValue, setPriceTagvalue] = useState([100, 10000]);
 
@@ -85,25 +73,6 @@ function Buy_Sells(props) {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
-  // const CategoriesFetch = () => {
-  //   var myHeaders = new Headers();
-  //   myHeaders.append('Authorization', `Bearer ${states?.user_token}`);
-
-  //   var requestOptions = {
-  //     method: 'GET',
-  //     headers: myHeaders,
-  //     redirect: 'follow',
-  //   };
-
-  //   fetch(
-  //     'http://mybahria.assanhissab.com/api/dropdown-sell-category',
-  //     requestOptions,
-  //   )
-  //     .then(response => response.json())
-  //     .then(({property_item_cat}) => setCategories(property_item_cat))
-  //     .catch(error => console.log('error--->', error));
-  // };
-
   const CategoriesFetch = async () => {
     try {
       const myHeaders = new Headers();
@@ -143,39 +112,6 @@ function Buy_Sells(props) {
   let categoryItems = category.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.title} />;
   });
-  // const getBuyandSell = async () => {
-  //   setLoading(true);
-  //   console.log(states.user_token);
-  //   await fetch('http://mybahria.assanhissab.com/api/buy-and-sell', {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: 'Bearer ' + states.user_token,
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(({bahria_sells, bahria_buy}) => {
-  //       console.log(
-  //         '🚀 ~ file: Buy_Sells.js:152 ~ .then ~ bahria_sells:',
-  //         bahria_buy,
-  //       );
-
-  //       setBuySell(bahria_sells);
-  //     })
-  //     .catch(error => {
-  //       return console.error(error, 'Error');
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
-
-  // useEffect(async () => {
-  //   await getBuyandSell();
-  //   await CategoriesFetch();
-  // }, []);
-  
   const getBuyandSell = async () => {
     setLoading(true);
     console.log(states.user_token);
@@ -212,11 +148,6 @@ function Buy_Sells(props) {
     }
   
     fetchData();
-  
-    // Optionally, if you need cleanup logic, return a function from useEffect
-    // return () => {
-    //   // cleanup logic here
-    // };
   }, []);
   
 
@@ -255,11 +186,7 @@ function Buy_Sells(props) {
         />
         <View
           style={{
-            // width: '95%',
-            // width: '111%',
-            // backgroundColor: 'skyblue',
             alignSelf: 'center',
-            // marginTop: 8,
             flex: 1,
           }}>
           <View style={{flexDirection: 'row'}}>
@@ -388,12 +315,6 @@ function Buy_Sells(props) {
                       </View>
                       <Text style={styles.titleStyle}>{currentItem?.id}</Text>
                     </View>
-
-                    {/* <View style={styles.DirectionRow}>
-            <Text style={styles.titleStyle}>Location: </Text>
-            <Text style={styles.normalText}>{Location}</Text>
-          </View> */}
-
                     <View style={styles.iconBg}>
                       <View style={styles.DirectionRow}>
                         <FontAwesome5
@@ -596,9 +517,6 @@ function Buy_Sells(props) {
             style={{
               width: '95%',
               alignSelf: 'center',
-              // backgroundColor: 'red',
-              // height: 40,
-              // paddingVertical:
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -611,18 +529,12 @@ function Buy_Sells(props) {
               onValuesChange={value => {
                 setPriceTagvalue(value);
               }}
-              // valuePrefix="Rs"
-              // trackStyle={{backgroundColor: '#cc0000'}}
               selectedStyle={{backgroundColor: '#cc0000'}}
-              // containerStyle={{backgroundColor: '#cc0000'}}
               markerStyle={{
                 backgroundColor: '#cc0000',
-                // borderColor: 'red',
                 height: 15,
                 width: 15,
               }}
-
-              // markerContainer={{backgroundColor: 'blue', color: 'red'}}
             />
 
             <View
@@ -630,7 +542,6 @@ function Buy_Sells(props) {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                // backgroundColor: 'blue',
               }}>
               <Text style={{color: 'black'}}>Rs: {priceTagValue[0]}</Text>
               <View
@@ -650,9 +561,6 @@ function Buy_Sells(props) {
               width: '95%',
               height: 50,
               alignSelf: 'center',
-              // backgroundColor: 'red',
-              // height: 40,
-              // paddingVertical:
               justifyContent: 'center',
               marginBottom: 16,
               alignItems: 'center',
@@ -675,10 +583,6 @@ function Buy_Sells(props) {
         </View>
         <View
           style={{
-            // position: 'absolute',
-            // bottom: 0,
-            // left: 0,
-            // right: 0,
             minHeight: 50,
             backgroundColor: '#cc0000',
             elevation: 11,
