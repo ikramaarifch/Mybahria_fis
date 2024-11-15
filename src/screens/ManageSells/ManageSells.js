@@ -76,7 +76,7 @@ function ManageSells(props) {
     setImage2(data);
     image2VisibilityHandler();
   };
-
+console.log(data,'imagedata')
   const RegisteredBuy = () => {
     //ssToastAndroid.show('password not match', ToastAndroid.SHORT);
     unit === ''
@@ -94,12 +94,13 @@ function ManageSells(props) {
   const addbuy = () => {
     var myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${states.user_token}`);
+  
     var formdata = new FormData();
     formdata.append('title', title);
     formdata.append('unit', unit);
     formdata.append('image', {
       uri: image2?.path,
-      type: image2.mime,
+      type: image2?.mime,
       name: image2?.path,
     });
     formdata.append('category', selectedCategory);
@@ -108,24 +109,33 @@ function ManageSells(props) {
     formdata.append('ispublish', selectedResident);
     formdata.append('add-save-page', '');
     formdata.append('user_id', states?.user_data?.id);
+  
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: formdata,
       redirect: 'follow',
     };
+  
     fetch('https://mybahria.com.pk/api/buy-save-page', requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        if (result.add_buy === 'buy Data added Succesfully') {
+      .then(async (response) => {
+        const textResponse = await response.text(); // Parse as text since it isn't valid JSON
+        console.log('Raw Response:', textResponse);
+  
+        if (textResponse.includes('buy Data added Succesfully')) {
           props.openModall();
         } else {
-          ToastAndroid.show('Some Thing Went Wrong', ToastAndroid.LONG);
+          ToastAndroid.show('Something Went Wrong', ToastAndroid.LONG);
         }
       })
-      .catch(error => console.log('error', error));
+      .catch((error) => {
+        console.log('addbuyerror', error);
+        ToastAndroid.show('Network Error. Please try again.', ToastAndroid.LONG);
+      });
   };
+  
+  
+  
 
   const deleteSell = () => {
     var myHeaders = new Headers();
@@ -204,7 +214,13 @@ function ManageSells(props) {
       formdata.append('description', House_Description);
       formdata.append('ispublish', selectedResident);
       formdata.append('user_id', states?.user_data?.id);
-
+console.log(title);
+console.log(unit);
+console.log(selectedCategory);
+console.log(price);
+console.log(House_Description);
+console.log(selectedResident);
+console.log(states?.user_data?.id);
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -221,7 +237,7 @@ function ManageSells(props) {
             ToastAndroid.show('Some Thing Went Wrong', ToastAndroid.LONG);
           }
         })
-        .catch(error => console.log('error', error));
+        .catch(error => console.log('addsellerror', error));
     }
   };
   const [cities, setCities] = useState([
