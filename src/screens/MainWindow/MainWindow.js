@@ -185,6 +185,23 @@ function MainWindow(props) {
             />
           </TouchableOpacity> */}
 
+<TouchableOpacity
+            onPress={() => {
+              // props.selectDrawerTab('Directory');
+              props.navigation.navigate('Home', {
+                cardTitle: 'Home',
+              });
+              // setShowBottomTabs(false);
+              closeDrawer();
+              // props.navigation.navigate('Directories');
+            }}>
+            <DrawerItemSample
+              name="home"
+              lable="Home"
+              selected={props.drawerActiveTab}
+            />
+          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => {
               // props.selectDrawerTab('Directory');

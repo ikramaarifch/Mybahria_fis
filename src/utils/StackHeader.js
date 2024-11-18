@@ -352,13 +352,16 @@ function StackHeader(props) {
           </Text>
 
           <FlatList
+          style={{
+            marginBottom: 50
+          }}
             data={emergency}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => {
               console.log(item);
               return (
                 <View
-                  style={{borderBottomColor: 'silver', borderBottomWidth: 2}}>
+                  style={{borderBottomColor: 'silver', borderBottomWidth: 2, height:'9%' }}>
                   <View
                     style={{
                       marginTop: 8,
@@ -368,7 +371,7 @@ function StackHeader(props) {
                       // backgroundColor: '#ddd',
                       // paddingVertical: 8,
                       paddingHorizontal: 16,
-                      height:50,
+                      height:75,
                     }}>
                     <MaterialCommunityIcons
                       name={item.icon}
@@ -398,7 +401,7 @@ function StackHeader(props) {
             Linking.openURL(`tel:${trimmedNumber}`);
           }}
         >
-          <Text style={{ color: '#cc0000', width: 110 }}>{trimmedNumber}</Text>
+          <Text style={{ color: '#cc0000', width: 110, textAlign:'right' }}>{trimmedNumber}</Text>
         </TouchableOpacity>
       );
     }

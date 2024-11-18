@@ -53,6 +53,7 @@ const CustomSidebarMenu = props => {
         </ImageBackground>
 
         <View style={styles.userDrawerContainer}>
+          
           <TouchableOpacity
             style={styles.userDrawer}
             onPress={() => navigation.navigate('BottomNavigation')}>
@@ -107,7 +108,6 @@ const CustomSidebarMenu = props => {
         </View>
 
         <View style={styles.userDrawerContainer}>
-          <Text style={styles.heading}>My Account</Text>
           <TouchableOpacity
             style={styles.userDrawer}
             onPress={() => navigation.navigate('editProfile')}>

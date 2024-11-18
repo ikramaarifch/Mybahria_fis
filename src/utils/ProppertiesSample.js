@@ -77,10 +77,11 @@ function ProppertiesSample(props) {
             />
           ) : (
             <Image
-              style={{height: 90, width: 65, borderRadius: 4}}
+              style={{height: 90, width: 65, borderRadius: 4, backgroundColor: 'transparent'}}
               source={{
                 uri: `${APIS.image_base_url}${ITEM.image}`,
               }}
+              
             />
           )}
 
@@ -90,7 +91,7 @@ function ProppertiesSample(props) {
               textAlign: 'center',
               // paddingVertical: 2,
               paddingVertical: 6,
-              backgroundColor: '#cc0000',
+              // backgroundColor: '#cc0000',
               opacity: 0.8,
               position: 'absolute',
               bottom: 10,
