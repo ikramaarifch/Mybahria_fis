@@ -105,7 +105,7 @@ function Contact(props) {
             numberOfLines={15}
             multiline={true}
             autoFocus={false}
-            style={{...styles.TextInput, height: '25%'}}
+            style={{...styles.TextInput, height:90}}
             label="Message"
             theme={{colors: {text: '#000', primary: 'firebrick'}}}
           />

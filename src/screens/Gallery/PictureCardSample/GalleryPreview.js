@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -5,109 +6,92 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React from 'react';
-import {APIS} from '../../../utils/URLS/Urls';
-import {useEffect, useState} from 'react';
+import { useSelector } from 'react-redux';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/AntDesign';
-const {width, height} = Dimensions.get('window');
-import Carousel, {Pagination, ParallaxImage} from 'react-native-snap-carousel';
-import {useDispatch, useSelector, useStore} from 'react-redux';
-const GalleryPreview = ({route, navigation}) => {
+import { APIS } from '../../../utils/URLS/Urls';
+
+const { width } = Dimensions.get('window');
+
+const GalleryPreview = ({ route, navigation }) => {
+  const { itemId, title } = route.params || {};
   const states = useSelector(state => state.ConstantReducer);
 
+  const [currentItem, setCurrentItem] = useState([]);
   const [activeDot, setActiveDot] = useState(0);
-  const [isLoading, setLoading] = useState(true);
-  const [currentItem, setCurrentItem] = useState('');
-  const {itemId, title} = route.params;
+  const [isLoading, setIsLoading] = useState(true);
 
-  const getAlbum = async id => {
-    console.log(id);
-    await fetch(`${APIS.post_gallery_detail}`, {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + states.user_token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: id,
-      }),
-    })
-      .then(res => res.json())
-      .then(
-        ({gallerypictures}) => {
-          setCurrentItem(gallerypictures);
+  // Function to fetch album data
+  const fetchAlbum = async id => {
+    try {
+      const response = await fetch(`${APIS.post_gallery_detail}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${states.user_token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        // gallerypictures.map(ele => {
-        //   return IMAGES_BASE_URL + ele.image;
-        // }),
-      )
-      .catch(error => {
-        return console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
+        body: JSON.stringify({ id }),
       });
+      const data = await response.json();
+      setCurrentItem(data.gallerypictures || []);
+    } catch (error) {
+      console.error('Error fetching album:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  useEffect(async () => {
-    setLoading(true);
-    getAlbum(itemId);
 
-    // console.log(currentItemImages,'gallerypictures');
-  }, []);
-  const renderNewsItem = ({item, index}) => {
-    return (
-      <View
+  // useEffect with async function inside
+  useEffect(() => {
+    const loadAlbum = async () => {
+      setIsLoading(true);
+      await fetchAlbum(itemId);
+    };
+
+    loadAlbum();
+  }, [itemId]);
+
+  const renderNewsItem = ({ item }) => (
+    <View
+      style={{
+        marginVertical: 8,
+        borderRadius: 8,
+        width: '90%',
+        alignSelf: 'center',
+        elevation: 5,
+        backgroundColor: '#fff',
+      }}
+    >
+      <Image
         style={{
-          marginVertical: 8,
-          borderRadius: 8,
-          width: '90%',
-          alignSelf: 'center',
-          elevation: 5,
-          paddingVertical: 8,
-          flexDirection: 'row',
-          backgroundColor: '#fff',
-          marginHorizontal: 16,
-          paddingHorizontal: 11,
-        }}>
-        <View>
-          {item.image === null ? (
-            <Image
-              style={{height: 90, width: 65, borderRadius: 4}}
-              source={APIS.default_image}
-            />
-          ) : (
-            <Image
-              style={{height: 200, width: width / 1.2, borderRadius: 4}}
-              source={{
-                uri: `${APIS.image_base_url}${item.image}`,
-              }}
-            />
-          )}
-
-          <Text
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              // paddingVertical: 2,
-              paddingVertical: 6,
-              backgroundColor: '#cc0000',
-              opacity: 0.8,
-              position: 'absolute',
-              bottom: 10,
-              right: 0,
-              left: 0,
-              textAlignVertical: 'center',
-              color: '#fff',
-              fontSize: 10,
-              fontWeight: 'bold',
-            }}>
-            {item.title}
-          </Text>
-        </View>
-      </View>
-    );
-  };
+          height: 200,
+          width: width / 1.2,
+          borderRadius: 4,
+        }}
+        source={{
+          uri: item.image
+            ? `${APIS.image_base_url}${item.image}`
+            : APIS.default_image,
+        }}
+      />
+      <Text
+        style={{
+          textAlign: 'center',
+          color: '#fff',
+          backgroundColor: '#cc0000',
+          paddingVertical: 6,
+          fontWeight: 'bold',
+          position: 'absolute',
+          bottom: 10,
+          left: 0,
+          right: 0,
+        }}
+      >
+        {item.title || 'No Title Available'}
+      </Text>
+    </View>
+  );
   return (
     <View
       style={{

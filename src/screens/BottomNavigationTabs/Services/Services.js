@@ -50,7 +50,7 @@ function Services(props) {
       .then(response => response.json())
       // .then(res => res)
       .then(({service}) => {
-        // console.log(emergency)
+        console.log(service, 'service');
         setServices(service);
       })
       .catch(error => {
@@ -117,10 +117,12 @@ function Services(props) {
     },
   ];
   const renderItem = (item, index) => (
+    
     <TouchableOpacity
       onPress={() => {
         props.navigation.navigate('DirectoryPreViewSample', {
-          id: item.service_id,
+          id: item.cid,
+          
         });
       }}
       style={styles.itemsStyle}>

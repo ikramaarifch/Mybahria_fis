@@ -22,7 +22,9 @@ import {APIS} from '../../../utils/URLS/Urls';
 import {ToastAndroid} from 'react-native';
 import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
+
 function Properties(props) {
+  
   const states = useSelector(state => state.ConstantReducer);
   const [isLoading, setLoading] = useState(true);
   const [allProperties, setAllPropperties] = useState([]);
@@ -112,22 +114,43 @@ function Properties(props) {
       redirect: 'follow',
     };
     fetch('https://mybahria.com.pk/api/area', requestOptions)
-      .then(response => response.json())
-      .then(({area}) => setAreas(area))
-      .catch(error => console.log('areaerror', error));
+  .then(async response => {
+    // Check if the response is ok (status code 200-299)
+    if (!response.ok) {
+      const errorText = await response.text(); // Read the error content if response is not ok
+      throw new Error(`HTTP error! Status: ${response.status}, ${errorText}`);
+    }
+
+    // Attempt to parse the response as JSON
+    const data = await response.json();
+
+    // Log the received data to check its structure
+    console.log('Received data:', data);
+
+    // Assuming the API response has a key 'area'
+    setAreas(data.area);
+  })
+  .catch(error => {
+    // Log the error details for debugging
+    console.log('areaerror:', error);
+  });
+
   };
 
   const SearchProperty = () => {
     var myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer ' + states.user_token);
     var formdata = new FormData();
-    formdata.append('type', checked);
+    formdata.append('purpose', checked);
     formdata.append('city', selectedCity1);
     formdata.append('location', selectedArea);
     formdata.append('property_type', selectedproperty);
     formdata.append('property_size', selectedsize);
     formdata.append('price_min', mainimumprice);
     formdata.append('price_max', maximumprice);
+    
+console.log(formdata);
+
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -149,19 +172,20 @@ function Properties(props) {
   };
   const renderNewsItem = ({item}) => {
     return (
+      
       <ProppertiesSample
         navigation={props.navigation}
         ITEM={item}
-        title={item.title}
-        Location={item.location}
-        IMG={item.image_src}
-        Purpose={item.purpose}
-        Price={item.price}
-        Added={item.created_at}
-        Type={item.type}
-        House_Description={item.description}
-        IMAGES={item.IMAGES}
-        authorDetails={item.owner_name}
+        // title={item.title}
+        // Location={item.location}
+        // IMG={item.image_src}
+        // Purpose={item.purpose}
+        // Price={item.price}
+        // Added={item.created_at}
+        // Type={item.type}
+        // House_Description={item.description}
+        // IMAGES={item.IMAGES}
+        // authorDetails={item.owner_name}
       />
     );
   };
@@ -169,7 +193,7 @@ function Properties(props) {
   const [selectedCity, setselectedCity] = useState('Key0');
 
   const getAllProperties = async () => {
-    await fetch(APIS.get_hot_properties_list, {
+    await fetch(APIS.get_property, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + states.user_token,
@@ -197,10 +221,10 @@ function Properties(props) {
     fetch(APIS.data_signup_city)
       .then(res => res.json())
       .then(({bahriaCities}) => {
-        console.log(
-          '🚀 ~ file: ManageProperties.js:164 ~ .then ~ bahriaCities:',
-          bahriaCities,
-        );
+        // console.log(
+        //   '🚀 ~ file: ManageProperties.js:164 ~ .then ~ bahriaCities:',
+        //   bahriaCities,
+        // );
 
         // setCategories(Category);
         setCities(bahriaCities);
@@ -245,7 +269,7 @@ function Properties(props) {
       .then(response => response.json())
       .then(({property_type}) => {
         setProperties(property_type);
-        console.log('property_type', property_type);
+        // console.log('property_type', property_type);
       })
       .catch(error => console.log('typeerror', error));
   };
@@ -256,7 +280,7 @@ function Properties(props) {
     return <Picker.Item key={item.id} value={item.id} label={item.title} />;
   });
   let propertiesItems = Properties.map(item => {
-    return <Picker.Item key={item.id} value={item.id} label={item.name} />;
+    return <Picker.Item key={item.name} value={item.name} label={item.name} />;
   });
   let AreaItems = Areas.map(item => {
     return <Picker.Item key={item.id} value={item.id} label={item.name} />;

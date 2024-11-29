@@ -25,6 +25,7 @@ import {
   NewsPreView,
   CardOneComponent,
   UserSetting,
+  ProppertiesSample,
 } from '../screens';
 
 import {DashboardStackComponent} from '../Screens/Dashboard';
@@ -131,6 +132,11 @@ function HomeStack(props) {
       <Stack.Screen
         name="SubCategoryPreview"
         component={DirectoryPreView}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ProppertiesSample"
+        component={ProppertiesSample}
         options={{headerShown: false}}
       />
       <Stack.Screen

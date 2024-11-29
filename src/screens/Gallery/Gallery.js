@@ -84,7 +84,8 @@ function Gallery({navigation}) {
               paddingVertical: 8,
               textAlign: 'center',
               fontSize: 12,
-              // fontWeight: 'bold',
+              color:'black',
+              fontWeight: 'bold',
             }}>
             {item.title}
           </Text>

@@ -157,7 +157,7 @@ function Directories(props) {
       const filteredParents = data.parents?.filter(parent => (
         parent.title !== 'Construction' &&
         parent.title !== 'Entertainment' &&
-        parent.title !== 'Health & Fitness'
+        parent.title !== 'HealthCare'
       )) || [];
   
       console.log('Filtparentsered :', filteredParents);

@@ -22,7 +22,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {APIS} from '../../../utils/URLS/Urls';
+
+import RenderHTML from 'react-native-render-html';
+import { useWindowDimensions } from 'react-native';
 function PropertyPreView(props) {
+  const { width } = useWindowDimensions();
   const [isLoading, setLoading] = useState(true);
 
   const navigation = useNavigation();
@@ -110,48 +114,40 @@ function PropertyPreView(props) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={{paddingHorizontal: 16, marginVertical: 20}}>
-        <View
+      <ScrollView  style={{paddingHorizontal: 16, marginBottom: 40, marginTop:20}}>
+        <ScrollView
           style={{
             width: '100%',
             flex: 1,
             height: 200,
             alignSelf: 'center',
-          }}>
-          {/* <Image
-            style={{
-              width: Dimensions.get('window').width - 6,
-              height: 150,
-              resizeMode: 'contain',
-            }}
-            source={APIS.default_image}
-          /> */}
-          {/* {
-            (console.log(ITEM.image_src === null ? '0' : '1'),
-            console.log(ITEM.image_src))
-          } */}
+          }}
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          >
 
-          {ITEM.image_src === null ? (
+{ITEM.image_src && typeof ITEM.image_src === 'string' ? (
+    ITEM.image_src.split(',').map((image, index) => (
             <Image
+            key={index}
               style={{
                 width: Dimensions.get('window').width - 6,
-                height: 150,
-                resizeMode: 'contain',
+                height: 200,
+                // resizeMode: 'contain',
               }}
-              source={APIS.default_image}
+              source={{
+                uri: `${APIS.image_base_url}${image.trim()}`,
+              }}
             />
-          ) : (
+          ))) : (
             <Image
               style={{
                 width: Dimensions.get('window').width - 6,
-                height: 150,
+                height: 200,
                 resizeMode: 'cover',
               }}
-              source={
-                ITEM.image_src === ''
-                  ? APIS.default_image
-                  : {uri: `${APIS.image_base_url}${ITEM.image_src}`}
-              }
+              source={APIS.default_image1}
             />
           )}
 
@@ -167,7 +163,7 @@ function PropertyPreView(props) {
             resizeMode={'cover'}
             images={IMAGES}
           /> */}
-        </View>
+        </ScrollView>
         <Text
           style={{
             marginTop: 16,
@@ -424,12 +420,32 @@ function PropertyPreView(props) {
             </TouchableOpacity> */}
           </View>
           {activeButton === 'Description' ? (
-            <Text
-            style={{color:'black'}}
-            >{House_Description}</Text>
-          ) : (
-            <Text style={styles.titleStyle}>Map</Text>
-          )}
+  typeof House_Description === 'string' && House_Description.includes('<') ? (
+    // Render as HTML if House_Description contains HTML tags
+    <RenderHTML
+      contentWidth={width}
+      source={{ html: House_Description }}
+      tagsStyles={{
+        p: { color: 'black' },
+        h1: { color: 'black' },
+        h2: { color: 'black' },
+        h3: { color: 'black' },
+        h4: { color: 'black' },
+        h5: { color: 'black' },
+        h6: { color: 'black' },
+        div: { color: 'black' },
+      }}
+    />
+  ) : (
+    // Render as plain text if no HTML tags are found
+    <Text style={{ color: 'black', fontSize: 16, lineHeight: 24 }}>
+      {House_Description || 'Description not available'}
+    </Text>
+  )
+) : (
+  <Text style={styles.titleStyle}>Map</Text>
+)}
+
         </View>
       </ScrollView>
       <View

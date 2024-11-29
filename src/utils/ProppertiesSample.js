@@ -8,44 +8,17 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import {APIS} from './URLS/Urls';
 
 function ProppertiesSample(props) {
-  const BASE_IMAGES_URL = APIS.image_base_url;
-
-  const [isLoading, setLoading] = useState(true);
+  
 
   const ITEM = props.ITEM;
-  const Auth_location =
-  ITEM['city_info'] === null || undefined ? null : ITEM['city_info'].dayDifference;
-  // const title = ITEM.title;
-  // const Location = ITEM['location_info'].name;
-  // const Auth_location = ITEM['city_info'].name;
-  // const Purpose = ITEM.purpose;
-  // const Price = ITEM.price;
-  // const Added = ITEM.created_at;
-  // const Type = ITEM.property_type.toUpperCase();
-  // const House_Description = ITEM.description;
-  // const IMAGES = ITEM.image_src.split(',');
-  // const auth_name = ITEM.owner_name;
-  // const auth_email = ITEM.email;
-  // const auth_phoneNumber = ITEM.phone_number;
-
-  // console.log('====================================');
-  // console.log();
-  // console.log('aaa : ', props.ITEM);
-  // console.log('====================================');
-  // console.log('aaa : ', IMAGES);
-
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1500);
-  }, []);
-  //  isLoading ? (
-  //   <ActivityIndicator size="large" color="red" style={{marginVertical: 50}} />
-  // ) :
+useEffect(() =>{
+  // console.log('item :', ITEM);
+})
 
   return (
     <TouchableWithoutFeedback
@@ -70,20 +43,35 @@ function ProppertiesSample(props) {
           justifyContent: 'space-evenly',
           }}>
         <View>
-          {ITEM.image === null ? (
-            <Image
-              style={{height: 90, width: 65, borderRadius: 4}}
-              source={APIS.default_image}
-            />
-          ) : (
-            <Image
-              style={{height: 90, width: 65, borderRadius: 4, backgroundColor: 'transparent'}}
-              source={{
-                uri: `${APIS.image_base_url}${ITEM.image}`,
-              }}
-              
-            />
-          )}
+        <ScrollView
+  style={{ maxHeight: 100 }} // Restrict the scrollable height
+  contentContainerStyle={{ alignItems: 'center' }} // Align content in the center
+>
+  {ITEM.image_src && typeof ITEM.image_src === 'string' ? (
+    ITEM.image_src.split(',').map((image, index) => (
+      <Image
+        key={index}
+        style={{
+          height: 90,
+          width: 65,
+          borderRadius: 4,
+          marginVertical: 5, // Add spacing between images
+          backgroundColor: 'transparent',
+        }}
+        source={{
+          uri: `${APIS.image_base_url}${image.trim()}`, // Load images dynamically
+        }}
+      />
+    ))
+  ) : (
+    <Image
+      style={{ height: 90, width: 65, borderRadius: 4 }}
+      source={APIS.default_image1} // Default image if no valid images
+    />
+  )}
+</ScrollView>
+
+
 
           <Text
             style={{

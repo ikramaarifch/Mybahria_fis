@@ -15,6 +15,7 @@ import {useDispatch, useSelector, useStore} from 'react-redux';
 import CustomButton from '../../../../utils/CustomButton';
 import {ToastAndroid} from 'react-native';
 import {APIS} from '../../../../utils/URLS/Urls';
+import { DefaultTheme } from 'react-native-paper';
 function Comments(props) {
   const states = useSelector(state => state.ConstantReducer);
   const [more, setMore] = useState(4);
@@ -292,7 +293,38 @@ function Comments(props) {
   };
   return (
     <View style={{flex: 1}}>
-      <View
+      <Text style={{
+        color:'#cc0000',
+        fontWeight:'bold',
+        fontSize:20
+      }}>
+        {item.thread}
+      </Text>
+     <View>
+  {item.image === null || item.image === '' ? (
+    <Image
+      source={DEFAULT_IMAGE}
+      style={{
+        height: 200,
+        width: '100%',
+        borderRadius: 4,
+        alignSelf: 'flex-start',
+      }}
+    />
+  ) : (
+    <Image
+      source={{ uri: `${APIS.image_base_url}${item.image}` }}
+      style={{
+        height: 200,
+        width: '100%',
+        borderRadius: 4,
+        alignSelf: 'flex-start',
+      }}
+    />
+  )}
+</View>
+
+      {/* <View
         style={{
           // flex: 1,
           // backgroundColor: 'skyblue',
@@ -305,7 +337,7 @@ function Comments(props) {
         }}>
         <Text style={{color: '#cc0000', fontWeight: 'bold', fontSize: 16}}>
           Title: {title}
-        </Text>
+        </Text> */}
         {/* <Text
           numberOfLines={more}
           style={{
@@ -349,7 +381,7 @@ function Comments(props) {
             {moreButtonText}
           </Text>
         </TouchableOpacity> */}
-      </View>
+      {/* </View> */}
       <TextInput
         multilines={'10'}
         style={{
@@ -360,8 +392,10 @@ function Comments(props) {
           alignSelf: 'center',
           borderRadius: 10,
           elevation: 3,
+          color:'black'
         }}
         placeholder="Comment Here"
+        placeholderTextColor={'black'}
         onChangeText={value => setFeedback(value)}
         multiline={true}
       />

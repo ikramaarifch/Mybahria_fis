@@ -23,6 +23,7 @@ export const news_image_base_url = 'https://api-mybahria.com.pk';
 
 export const APIS = {
   default_image: require('../../Drawables/logo.png'),
+  default_image1: require('../../Drawables/static_image.jpg'),
   image_base_url: 'https://mybahria.com.pk/public/assets/uploads/',
   login: `${BASE_URL}login`,
   register: `${BASE_URL}register`,
@@ -32,7 +33,7 @@ export const APIS = {
   get_hot_news_list: `${BASE_URL}hot-news`,
   get_hot_properties_list: `${BASE_URL}all-bahria-property`,
 
-  // get_forum_categories : `${BASE_URL}forum_categories`,
+  get_property: `${BASE_URL}bahria-property`,
   post_search_news: `${BASE_URL}search-news`,
   get_forum_news: `${BASE_URL}forum-categories`,
   post_forum_list: `${BASE_URL}forums-list?id=20`,

@@ -22,6 +22,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 import AccordionItem from '../utils/AccordianItem';
+import { width, height, size, fontSize } from "react-native-responsive-sizes";
 function StackHeader(props) {
   const states = useSelector(state => state.ConstantReducer);
 
@@ -347,6 +348,7 @@ function StackHeader(props) {
               borderLeftWidth: 2,
               paddingHorizontal: 8,
               fontWeight: 'bold',
+              color:'red'
             }}>
             Emergency
           </Text>
@@ -364,14 +366,14 @@ function StackHeader(props) {
                   style={{borderBottomColor: 'silver', borderBottomWidth: 2, height:'9%' }}>
                   <View
                     style={{
-                      marginTop: 8,
+                      marginTop: size(8),
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       // backgroundColor: '#ddd',
                       // paddingVertical: 8,
-                      paddingHorizontal: 16,
-                      height:75,
+                      paddingHorizontal: size(16),
+                      height:size(75),
                     }}>
                     <MaterialCommunityIcons
                       name={item.icon}
@@ -382,7 +384,7 @@ function StackHeader(props) {
                       style={{
                         textAlign: 'left',
                         flex: 1,
-                        marginHorizontal: 4,
+                        marginHorizontal: size(4),
                         color: 'black',
                         // fontWeight: 'bold',
                         // height:30,
@@ -401,7 +403,7 @@ function StackHeader(props) {
             Linking.openURL(`tel:${trimmedNumber}`);
           }}
         >
-          <Text style={{ color: '#cc0000', width: 110, textAlign:'right' }}>{trimmedNumber}</Text>
+          <Text style={{ color: '#cc0000', width: size(110), textAlign:'right' }}>{trimmedNumber}</Text>
         </TouchableOpacity>
       );
     }

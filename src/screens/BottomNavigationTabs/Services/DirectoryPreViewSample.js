@@ -118,6 +118,7 @@ function DirectoryPreViewSample(props) {
     myHeaders.append('Authorization', `Bearer ${states.user_token}`);
     var formdata = new FormData();
     formdata.append('search_key', search);
+    formdata.append('cid', props.route.params.id);
     console.log(formdata, 'LKJHGFD');
     var requestOptions = {
       method: 'POST',
